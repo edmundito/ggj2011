@@ -3,14 +3,12 @@ package
 	import org.flixel.*;
 	import states.*;
 
-	[SWF(width="960", height="640", backgroundColor="#000000")]
-	
+	[SWF(width="640", height="480", backgroundColor="#000000")]
 	public class Main extends FlxGame
 	{
-		public function Main ():void 
+		public function Main():void 
 		{
-			// change to intro menu
-			super (480, 320, GameState, 2);
+			super(320, 240, GameState, 2);
 		}
 	}
 }
