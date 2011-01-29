@@ -19,7 +19,7 @@ package
 		public function Main():void 
 		{
 			addEventListener(Event.ADDED_TO_STAGE, onAddedToStage);
-			super(320, 240, Scene1State, ZOOM);
+			super(320, 240, GameState, ZOOM);
 			
 			FlxG.mouse.show();
 		}

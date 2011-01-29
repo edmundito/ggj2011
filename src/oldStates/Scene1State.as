@@ -1,9 +1,8 @@
 package states 
 {
 	import org.flixel.*;
-	import flash.utils.*;
 	
-	public class Scene2State extends GameState 
+	public class Scene1State extends GameState 
 	{
 		
 		override public function create():void 
@@ -11,27 +10,33 @@ package states
 			super.create();
 			
 			// State name
-			add(new FlxText(0, 0, 100, "Hello, Scene 2!")); //adds a 100px wide text field at position 0,0 (upper left)
+			add(new FlxText(0, 0, 100, "Hello, Scene 1!")); //adds a 100px wide text field at position 0,0 (upper left)
 			
 			initScene();
-			_leftScene = Scene1State;
+			_rightScene = Scene2State;
 			
 			// Start state
 			FlxG.flash.start(0xffffffff, FLASHFADETIME);
 		}
-
+		
 		public function initScene():void
 		{
-			if (_prevState is Scene1State)
+			if (_worldTimer._turn == 0)
 			{
-				addPlayer(SAFEBUFFER, GROUND);
+				addPlayer(FlxG.width * 0.5, GROUND);
+			}
+			else
+			{
+				addPlayer(FlxG.width - SAFEBUFFER, GROUND);
+				_player.facing = FlxSprite.RIGHT;
 			}
 		}
-		
+
 		override public function update():void
 		{
 			super.update();
 		}
+
 	}
 
 }
