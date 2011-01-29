@@ -14,10 +14,12 @@ package
 	[Frame(factoryClass="Preloader")]
 	public class Main extends FlxGame
 	{		
+		public const ZOOM:uint = 2;
+		
 		public function Main():void 
 		{
 			addEventListener(Event.ADDED_TO_STAGE, onAddedToStage);
-			super(320, 240, TestPlayerState, 2);
+			super(320, 240, TestPlayerState, ZOOM);
 			
 			FlxG.mouse.show();
 		}
@@ -27,7 +29,7 @@ package
 			removeEventListener(Event.ADDED_TO_STAGE, onAddedToStage);
 			
 			stage.scaleMode = StageScaleMode.NO_SCALE;
-			stage.fullScreenSourceRect = new Rectangle(0, 0, 640, 480); 
+			stage.fullScreenSourceRect = new Rectangle(0, 0, FlxG.width * ZOOM, FlxG.height * ZOOM); 
 			
 			stage.addEventListener(KeyboardEvent.KEY_DOWN, onKeyDown);
 		}
