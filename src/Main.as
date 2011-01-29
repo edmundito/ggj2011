@@ -9,6 +9,7 @@ package
 	import org.flixel.*;
 	
 	import states.*;
+	import oldStates.TestPlayerState;
 
 	[SWF(width="640", height="480", backgroundColor="#000000")]
 	[Frame(factoryClass="Preloader")]

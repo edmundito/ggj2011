@@ -1,7 +1,8 @@
 package world 
 {
-	import sprites.PlayerSprite;
 	import org.flixel.*;
+	
+	import sprites.PlayerSprite;
 	
 	public class PlayerGroup extends FlxGroup 
 	{
@@ -11,8 +12,10 @@ package world
 		[Embed(source="../../assets/sprites/ground.png")]
 		static protected var GroundImg:Class;
 		
-		public function PlayerGroup() 
+		public function PlayerGroup(player:PlayerSprite) 
 		{
+			super();
+			
 			// Ground
 			_ground = new FlxGroup();
 			add(_ground);
@@ -28,9 +31,8 @@ package world
 				sprite.y = 50;
 				_ground.add(sprite);
 			}
-			
-			// Player
-			_player = new PlayerSprite(20, 50);
+		
+			_player = player;
 			add(_player);
 		}
 		
