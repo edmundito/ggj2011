@@ -14,6 +14,7 @@ package states
 			add(new FlxText(0, 0, 100, "Hello, Scene 1!")); //adds a 100px wide text field at position 0,0 (upper left)
 			
 			initScene();
+			_rightScene = Scene2State;
 			
 			// Start state
 			FlxG.flash.start(0xffffffff, FLASHFADETIME);
@@ -35,15 +36,6 @@ package states
 		override public function update():void
 		{
 			super.update();
-			
-			if (_player.x < SAFEBUFFER)
-			{
-				_player.x = SAFEBUFFER;
-			}
-			else if (_player.x > FlxG.width - TRANSITIONBUFFER)
-			{
-				transitionRight(new Scene2State);
-			}
 		}
 
 	}

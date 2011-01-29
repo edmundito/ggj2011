@@ -1,5 +1,6 @@
 package states 
 {
+	import flash.utils.getDefinitionByName;
 	import org.flixel.*;
 	
 	import sprites.*;
@@ -13,18 +14,50 @@ package states
 		static public const GROUND:Number = 200;
 		
 		static public var _worldTimer:TurnBasedTimer = new TurnBasedTimer();
-		static public var _prevState:GameState;
+		static public var _prevState:GameState = null;
 		
 		protected var _player:PlayerSprite;
+		protected var _leftScene:Class;
+		protected var _rightScene:Class;
 		private var _newState:GameState;
 		
 		override public function create():void
-		{
+		{	
+			_player = null;
+			_leftScene = null;
+			_rightScene = null;
+			_newState = null;
 		}
 		
 		override public function update():void
 		{
 			super.update();
+			
+			var sceneClass:Class
+			
+			if (_leftScene == null)
+			{
+				if (_player.x < SAFEBUFFER) _player.x = SAFEBUFFER;
+			}
+			else
+			{
+				if (_player.x < TRANSITIONBUFFER) 
+				{
+					transitionLeft(new _leftScene() as GameState);
+				}
+			}
+			
+			if (_rightScene == null)
+			{
+				if (_player.x > FlxG.width - SAFEBUFFER) _player.x = FlxG.width - SAFEBUFFER;
+			}
+			else
+			{
+				if (_player.x > FlxG.width - TRANSITIONBUFFER) 
+				{
+					transitionLeft(new _rightScene() as GameState);
+				}
+			}
 		}
 		
 		public function addPlayer(x:Number, y:Number):void
