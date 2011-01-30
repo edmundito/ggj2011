@@ -64,6 +64,24 @@ package
 		[Embed(source="../assets/sprites/figure5_blue.png")]
 		static public var Figure5BlueGraphic:Class;
 		
+		[Embed(source="../assets/sprites/figure6_red.png")]
+		static public var Figure6RedGraphic:Class;
+		
+		[Embed(source="../assets/sprites/figure6_blue.png")]
+		static public var Figure6BlueGraphic:Class;
+		
+		[Embed(source="../assets/sprites/figure7_red.png")]
+		static public var Figure7RedGraphic:Class;
+		
+		[Embed(source="../assets/sprites/figure7_blue.png")]
+		static public var Figure7BlueGraphic:Class;
+		
+		[Embed(source="../assets/sprites/figure8_red.png")]
+		static public var Figure8RedGraphic:Class;
+		
+		[Embed(source="../assets/sprites/figure8_blue.png")]
+		static public var Figure8BlueGraphic:Class;
+		
 		
 		/* AUDIO */
 		
