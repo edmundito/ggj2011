@@ -42,7 +42,7 @@ package world
 			{
 				key = _possibleKeys.charAt(Utils.randInt(0, _possibleKeys.length - 1));
 			}
-			while (_keysInUse.indexOf(key) > 0);
+			while (_keysInUse.indexOf(key) >= 0);
 			
 			_keysInUse.push(key);
 			
@@ -55,7 +55,7 @@ package world
 		{
 			var index:int = _keysInUse.indexOf(key);
 			
-			if (index > 0)
+			if (index >= 0)
 			{
 				_keysInUse.splice(index, 1);
 			}
