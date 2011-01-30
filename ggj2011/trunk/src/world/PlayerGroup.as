@@ -77,7 +77,7 @@ package world
 			for each (var figure:FigureSprite in _figureGroup.members)
 			{
 				// Player is colliding with figure that has not been built!
-				if (_player.overlapsPoint(figure.x, figure.y) && !figure.isDone)
+				if (_player.overlapsPoint(figure.x, figure.y - figure.height * 0.5) && !figure.isDone)
 				{
 					if (_overlappingFigure != figure)
 					{
