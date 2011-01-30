@@ -8,6 +8,8 @@ package sprites
 		
 		private var _buildSteps:uint;
 		private var _currentStep:uint = 0;
+		private var _didStep:Boolean = false;
+		private var _didStepDelta:int = 1;
 		
 		public function get isDone():Boolean
 		{
@@ -38,12 +40,20 @@ package sprites
 			if (!this.isDone)
 			{
 				_currentStep++;
+				_didStep = true;
 			}
 		}
 		
 		override public function update():void
 		{
 			play("build" + (Math.floor(_currentStep / _buildSteps * NUM_FRAMES) as int));
+			
+			if (_didStep)
+			{
+				 this.x += _didStepDelta;
+				 _didStepDelta *= -1;
+				 _didStep = false;
+			}
 		}
 	}
 }

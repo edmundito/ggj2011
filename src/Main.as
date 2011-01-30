@@ -15,6 +15,8 @@ package
 	[Frame(factoryClass="Preloader")]
 	public class Main extends FlxGame
 	{		
+		Assets;
+		
 		public const ZOOM:uint = 2;
 		
 		public function Main():void 
