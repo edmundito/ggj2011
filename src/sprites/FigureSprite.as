@@ -1,6 +1,7 @@
 package sprites
 {
 	import org.flixel.FlxSprite;
+	import org.flixel.FlxG;
 	
 	public class FigureSprite extends FlxSprite
 	{
@@ -8,9 +9,15 @@ package sprites
 		
 		private var _buildSteps:uint;
 		private var _currentStep:uint = 0;
-		private var _currentAnim:String;
+		public var _currentAnim:String;
 		private var _didStep:Boolean = false;
 		private var _didStepDelta:int = 1;
+		
+		private var _birthFrames:uint;
+		private var _idleFrames:uint;
+		private var _meltFrames:uint;
+		
+		public var _graphic:Class;
 		
 		public function get isDone():Boolean
 		{
@@ -21,6 +28,7 @@ package sprites
 		{
 			super(X, Y);
 			
+			_graphic = Graphic;
 			loadGraphic(Graphic, true, false, 64, 64);
 			this.width = 64;
 			this.height = 64;
@@ -30,11 +38,32 @@ package sprites
 			
 			_buildSteps = buildSteps;
 			
+			// Frames
+			_birthFrames = 4;
+			_meltFrames = 1;
+			
 			addAnimation("birth0", [0]);
 			addAnimation("birth1", [1]);
 			addAnimation("birth2", [2]);
 			addAnimation("birth3", [3]);
 			
+			if (_graphic == Assets.Figure1BlueGraphic || _graphic == Assets.Figure1RedGraphic)
+			{
+				_idleFrames = 2;
+				addAnimation("idle", [4,5], 4, true);
+			}
+			else if (_graphic == Assets.Figure2BlueGraphic || _graphic == Assets.Figure2RedGraphic ||
+					_graphic == Assets.Figure4BlueGraphic || _graphic == Assets.Figure4RedGraphic )
+			{
+				_idleFrames = 4;
+				addAnimation("idle", [4,5,6,7], 4, true);
+			}
+			else if (_graphic == Assets.Figure3BlueGraphic || _graphic == Assets.Figure3RedGraphic ||
+					_graphic == Assets.Figure5BlueGraphic || _graphic == Assets.Figure5RedGraphic )
+			{
+				_idleFrames = 3;
+				addAnimation("idle", [4,5,6], 4, true);
+			}
 		}
 		
 		public function buildStep():void
@@ -57,6 +86,9 @@ package sprites
 				 _didStepDelta *= -1;
 				 _didStep = false;
 			}
+			
+			super.update();
 		}
+		
 	}
 }

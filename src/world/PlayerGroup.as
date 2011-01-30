@@ -145,6 +145,7 @@ package world
 							addEmitter(figure.x , figure.y-20);
 							FlxG.play(Assets.BuiltSound);
 							_overlappingFigure = null;
+							figure._currentAnim = "idle";
 						}
 					}
 					
