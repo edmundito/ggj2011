@@ -14,15 +14,18 @@ package
 	[SWF(width="640", height="480", backgroundColor="#000000")]
 	[Frame(factoryClass="Preloader")]
 	public class Main extends FlxGame
-	{		
-		Assets;
-		
+	{				
 		public const ZOOM:uint = 2;
 		
 		public function Main():void 
 		{
+			Assets;
+			Globals;
+			
 			addEventListener(Event.ADDED_TO_STAGE, onAddedToStage);
 			super(320, 240, GameState, ZOOM);
+			
+			this.useDefaultHotKeys = false;
 			
 			FlxG.mouse.show();
 		}

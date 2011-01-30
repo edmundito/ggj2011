@@ -49,6 +49,9 @@ package sprites
 			
 			_moveKeyA = MoveKeyA;
 			_moveKeyB = MoveKeyB;
+			Globals.randomKeyMgr.addKeyToIgnoreList(_moveKeyA);
+			Globals.randomKeyMgr.addKeyToIgnoreList(_moveKeyB);
+			
 			
 			var GraphicClass:Class = (BaseName == "red")? Assets.RedPlayerGraphic : Assets.BluePlayerGraphic;
 			
@@ -167,7 +170,7 @@ package sprites
 			_alt = !_alt;
 			_currentAnimFrame++;
 			
-			if (_currentAnimFrame > MAX_WALK_ANIM_FRAMES)
+			if (_currentAnimFrame >= MAX_WALK_ANIM_FRAMES)
 			{
 				_currentAnimFrame = 0;
 			}
@@ -178,11 +181,11 @@ package sprites
 		{
 			if (_state == STATE_RUN)
 			{
-				if (FlxG.keys.justPressed(_moveKeyA) && !_alt)
+				if (FlxG.keys.justPressed(_moveKeyA) && _alt)
 				{
 					moveForward();
 				}
-				else if (FlxG.keys.justPressed(_moveKeyB) && _alt)
+				else if (FlxG.keys.justPressed(_moveKeyB) && !_alt)
 				{
 					moveForward();
 				}
@@ -202,7 +205,7 @@ package sprites
 		{
 			_currentAnimFrame++;
 			
-			if (_currentAnimFrame > MAX_BUILD_ANIM_FRAMES)
+			if (_currentAnimFrame >= MAX_BUILD_ANIM_FRAMES)
 			{
 				_currentAnimFrame = 0;
 			}
