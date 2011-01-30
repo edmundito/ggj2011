@@ -8,7 +8,7 @@ package world
 	public class FigureGroup extends FlxGroup 
 	{
 		static private const FIGUREOFFSET:int = 114;
-		static private const NUM_FIGURES:uint = 8;
+		static private const NUM_FIGURES:uint = 10;
 		static private const BUILD_INC:uint = 8;
 		
 		public static const FIGURE_GRAPHICS:Object = {
@@ -20,7 +20,9 @@ package world
 				Assets.Figure5BlueGraphic,
 				Assets.Figure6BlueGraphic,
 				Assets.Figure7BlueGraphic,
-				Assets.Figure8BlueGraphic
+				Assets.Figure8BlueGraphic,
+				Assets.Figure9BlueGraphic,
+				Assets.Figure10BlueGraphic
 			],
 			"red": [
 				Assets.Figure1RedGraphic,
@@ -30,7 +32,9 @@ package world
 				Assets.Figure5RedGraphic,
 				Assets.Figure6RedGraphic,
 				Assets.Figure7RedGraphic,
-				Assets.Figure8RedGraphic
+				Assets.Figure8RedGraphic,
+				Assets.Figure9RedGraphic,
+				Assets.Figure10RedGraphic
 			]
 		}
 		

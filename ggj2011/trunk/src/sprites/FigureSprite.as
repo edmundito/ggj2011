@@ -30,9 +30,19 @@ package sprites
 			super(X, Y);
 			
 			_graphic = Graphic;
-			loadGraphic(Graphic, true, false, 80, 80);
-			this.width = 80;
-			this.height = 80;
+			
+			if (_graphic == Assets.Figure9BlueGraphic || _graphic == Assets.Figure9RedGraphic)
+			{
+				loadGraphic(Graphic, true, false, 108, 100);
+				this.width = 108;
+				this.height = 100;
+			}
+			else
+			{
+				loadGraphic(Graphic, true, false, 80, 80);
+				this.width = 80;
+				this.height = 80;
+			}
 			
 			this.offset.x = this.width * 0.5;
 			this.offset.y = this.height;
@@ -63,7 +73,9 @@ package sprites
 					_graphic == Assets.Figure5BlueGraphic || _graphic == Assets.Figure5RedGraphic ||
 					_graphic == Assets.Figure6BlueGraphic || _graphic == Assets.Figure6RedGraphic ||
 					_graphic == Assets.Figure7BlueGraphic || _graphic == Assets.Figure7RedGraphic ||
-					_graphic == Assets.Figure8BlueGraphic || _graphic == Assets.Figure8RedGraphic)
+					_graphic == Assets.Figure8BlueGraphic || _graphic == Assets.Figure8RedGraphic ||
+					_graphic == Assets.Figure9BlueGraphic || _graphic == Assets.Figure9RedGraphic ||
+					_graphic == Assets.Figure10BlueGraphic || _graphic == Assets.Figure10RedGraphic)
 			{
 				_idleFrames = 3;
 				addAnimation("idle", [4,5,6], ANIM_FPS, true);
