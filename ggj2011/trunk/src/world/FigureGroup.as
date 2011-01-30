@@ -38,6 +38,8 @@ package world
 				add(new FigureSprite(FlxG.width / 4, this.y + FIGUREOFFSET, Assets.BluePlayerGraphic, 16));
 				add(new FigureSprite(FlxG.width / 4 * 2, this.y + FIGUREOFFSET, Assets.BluePlayerGraphic, 16));
 				add(new FigureSprite(FlxG.width / 4 * 3, this.y + FIGUREOFFSET, Assets.BluePlayerGraphic, 16));
+				
+				_current = 1;
 			}
 			
 			_current++;
