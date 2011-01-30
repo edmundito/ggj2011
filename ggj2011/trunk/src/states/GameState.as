@@ -14,6 +14,10 @@ package states
 		private var _player1Strip:PlayerGroup;
 		private var _player2Strip:PlayerGroup;
 		
+		private var _bgm:FlxSound;
+		private var _endTriggered:Boolean = false;
+		private var _cooldownTime:Number = 0.0;
+		
 		override public function create():void
 		{
 			
@@ -29,11 +33,23 @@ package states
 			
 			_player2Strip = new PlayerGroup(_player2);
 			_player2Strip.y = FlxG.height * 0.5;
-			add(_player2Strip);			
+			add(_player2Strip);		
+			
+			_bgm = FlxG.play(Assets.BgmSound);
 		}
 		
 		override public function update():void
-		{			
+		{
+			if (!_bgm.playing && !_endTriggered)
+			{
+				_cooldownTime += FlxG.elapsed;
+				if (_cooldownTime > 5.0)
+				{
+					_endTriggered = true;
+					FlxG.log("Music Ends!");
+				}
+			}
+			
 			super.update();
 		}
 		
