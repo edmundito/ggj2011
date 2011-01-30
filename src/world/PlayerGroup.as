@@ -6,6 +6,7 @@ package world
 	import sprites.PlayerSprite;
 	
 	import world.Background;
+	import world.FigureGroup;
 	
 	public class PlayerGroup extends FlxGroup 
 	{
@@ -13,8 +14,8 @@ package world
 		
 		private var _background:Background;
 		private var _player:PlayerSprite;
-		private var _figure:FigureSprite;
 		private var _ground:FlxGroup;
+		private var _figureGroup:FigureGroup;
 		
 		public function PlayerGroup(player:PlayerSprite) 
 		{
@@ -42,42 +43,34 @@ package world
 				_ground.add(sprite);
 			}
 			
+			_figureGroup = new FigureGroup;
+			add(_figureGroup);
+			
 			_player = player;
-		
-			// Figures are created before player :)
-			_figure = new FigureSprite(FlxG.width * 0.5, _player.y - 5, Assets.BluePlayerGraphic, 16);
-			add(_figure);
-			
-			
 			add(_player);
 		}
 		
 		override public function update():void
 		{
-			if (_player.overlaps(_figure) && _player.state == PlayerSprite.STATE_RUN && !_figure.isDone)
-			{
-				_player.state = PlayerSprite.STATE_BUILD;	
-			}
 			
 			// Update Player
-			if (_player.state == PlayerSprite.STATE_BUILD && FlxG.keys.justPressed("B") && !_figure.isDone)
+			for each (var figure:FigureSprite in _figureGroup.members)
 			{
-				_figure.buildStep();
-				_player.building();
-				
-				if (_figure.isDone)
+				if (_player.overlaps(figure) && FlxG.keys.justPressed("B") && !figure.isDone)
 				{
-					_player.state = PlayerSprite.STATE_RUN;
+					figure.buildStep();
+					_player.building();
+					break;
 				}
 			}
 			
 			// Update Background
-			
 			if (_player.x > FlxG.width - TRANSITIONBUFFER)
 			{
 				if (_background.next())
 				{
 					_player.x = TRANSITIONBUFFER;
+					_figureGroup.next();
 				}
 				else
 				{
