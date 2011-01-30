@@ -11,6 +11,8 @@ package world
 		private var _current:int = 0;
 		private var _phase:uint = 0;
 		
+		static private const MAX_PHASES = 3;
+		
 		public function Background(Graphic:Class, height:uint = 120) 
 		{
 			super();
@@ -35,22 +37,27 @@ package world
 		
 		public function nextSeason():void
 		{
-			_phase++;
+			if (_phase == 0)
+			{
+				_phase++;
+			}
 		}
 		
 		public function next():Boolean
 		{
-			play(_current.toString())
-			
 			if (_phase == 1)
 			{
 				this.facing = RIGHT;
+				_current = 2;
 			}
 			else
 			{
 				var choice:uint = Utils.randInt(0, 1);
 				this.facing = choice? LEFT : RIGHT;
 			}
+			
+			play(_current.toString());
+			
 			
 			// Increment counter
 			_current++;
