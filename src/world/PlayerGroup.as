@@ -44,10 +44,10 @@ package world
 				_ground.add(sprite);
 			}
 			
-			_emitterGroup = new FlxGroup;
+			_emitterGroup = new FlxGroup();
 			add(_emitterGroup);
 			
-			_figureGroup = new FigureGroup;
+			_figureGroup = new FigureGroup();
 			add(_figureGroup);
 			
 			_player = player;
