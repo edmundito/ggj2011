@@ -17,6 +17,7 @@ package world
 		private var _ground:FlxGroup;
 		private var _figureGroup:FigureGroup;
 		private var _emitterGroup:FlxGroup;
+		private var _keyText:FlxText;
 		
 		public function PlayerGroup(player:PlayerSprite) 
 		{
@@ -50,6 +51,11 @@ package world
 			_figureGroup = new FigureGroup();
 			add(_figureGroup);
 			
+			
+			_keyText = new FlxText(0, 0, 20, "B");
+			_keyText.visible = false;
+			add(_keyText);
+			
 			_player = player;
 			add(_player);
 		}
@@ -57,24 +63,53 @@ package world
 		override public function update():void
 		{
 			
+			var isNearFigure:Boolean = false;
+			
 			// Update Player
 			for each (var figure:FigureSprite in _figureGroup.members)
 			{
-				if (_player.overlaps(figure) && FlxG.keys.justPressed("B") && !figure.isDone)
+				// Player is colliding with figure that has not been built!
+				if (_player.overlaps(figure) && !figure.isDone)
 				{
-					figure.buildStep();
-					_player.building();
+					// Show key hint...
+					_keyText.visible = true;
+					_keyText.x = figure.x;
+					_keyText.y = figure.y - figure.height;
 					
-					if (figure.isDone)
+					isNearFigure = true;
+					
+					// Player pressing key...
+					if (FlxG.keys.justPressed("B"))
 					{
-						addEmitter(figure.x , figure.y-20);
+						if (_player.state != PlayerSprite.STATE_BUILD)
+						{
+							_player.state = PlayerSprite.STATE_BUILD;
+						}
+						
+						figure.buildStep();
+						_player.building();
+						
+						// Figure finally complete...
+						if (figure.isDone)
+						{
+							addEmitter(figure.x , figure.y-20);
+							_keyText.visible = false;
+							isNearFigure = false;
+							_player.state = PlayerSprite.STATE_RUN;
+						}
 					}
 					
 					break;
 				}
 			}
 			
-			// Update Background
+			// No longer near figure and key hint is showing
+			if (!isNearFigure && _keyText.visible)
+			{
+				_keyText.visible = false;
+			}
+			
+			// Next Background if needed
 			if (_player.x > FlxG.width - TRANSITIONBUFFER)
 			{
 				if (_background.next())
@@ -83,7 +118,9 @@ package world
 					_figureGroup.next();
 					
 					for each (var emitter:FlxEmitter in _emitterGroup.members)
+					{
 						emitter.kill();
+					}
 					_emitterGroup.members.splice(0, _emitterGroup.members.length);
 				}
 				else

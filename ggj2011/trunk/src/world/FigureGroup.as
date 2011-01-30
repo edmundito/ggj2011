@@ -1,7 +1,7 @@
 package world 
 {
-	import org.flixel.FlxGroup;
 	import org.flixel.FlxG;
+	import org.flixel.FlxGroup;
 	
 	import sprites.FigureSprite;
 	
@@ -13,6 +13,8 @@ package world
 		
 		public function FigureGroup() 
 		{
+			super();
+			
 			// yes?
 			next();
 		}
@@ -40,6 +42,7 @@ package world
 			}
 			
 			current++;
+			
 		}
 	}
 

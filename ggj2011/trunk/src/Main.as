@@ -41,7 +41,7 @@ package
 		{
 			stage.removeEventListener(KeyboardEvent.KEY_DOWN, onKeyDown);
 			
-			if (keyboardEvent.keyCode == 70)
+			if (keyboardEvent.altKey && keyboardEvent.keyCode == 13)
 			{
 				toggleFullScreen();
 			}
