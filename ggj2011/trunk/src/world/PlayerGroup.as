@@ -13,8 +13,8 @@ package world
 		static public const TRANSITIONBUFFER:Number = 20;
 		
 		private var _background:Background;
+		private var _backgroundFront:Background;
 		private var _player:PlayerSprite;
-		private var _ground:FlxGroup;
 		private var _figureGroup:FigureGroup;
 		private var _emitterGroup:FlxGroup;
 		private var _keyText:FlxText;
@@ -34,9 +34,9 @@ package world
 			super();
 			
 			// Background
-			_background = new Background();
-			_background.loadGraphic(Assets.Test1Img);
+			_background = new Background(Assets.BgGraphic);
 			add(_background);
+			_background.next();
 			
 			_emitterGroup = new FlxGroup();
 			add(_emitterGroup);
@@ -59,22 +59,13 @@ package world
 			add(_player);
 			
 			// Ground
-			_ground = new FlxGroup();
-			add(_ground);
-			
-			var sprite:FlxSprite;
-			
-			for (var i:int = 0; i < 8; i++)
-			{
-				sprite = new FlxSprite();
-				sprite.loadGraphic(Assets.BgFrontGraphic);
-				sprite.offset.x = 0;
-				sprite.offset.y = sprite.height;
-				sprite.x = sprite.width * i;
-				sprite.y = FlxG.height * 0.5;
-				sprite.fixed = true;
-				_ground.add(sprite);
-			}
+			_backgroundFront = new Background(Assets.BgFrontGraphic, 16);
+			_backgroundFront.next();
+			_backgroundFront.offset.x = 0;
+			_backgroundFront.offset.y = _backgroundFront.height;
+			_backgroundFront.x = 0;
+			_backgroundFront.y = FlxG.height * 0.5;
+			add(_backgroundFront);
 		}
 		
 		override public function update():void
@@ -168,6 +159,7 @@ package world
 			{
 				if (_background.next())
 				{
+					_backgroundFront.next();
 					_player.x = TRANSITIONBUFFER;
 					_figureGroup.next();
 					

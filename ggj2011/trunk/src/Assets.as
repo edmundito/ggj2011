@@ -11,6 +11,9 @@ package
 		[Embed(source="../assets/sprites/redPlayer.png")]
 		static public var RedPlayerGraphic:Class;
 		
+		[Embed(source="../assets/sprites/bg.png")]
+		static public var BgGraphic:Class;
+		
 		[Embed(source="../assets/sprites/bg_front.png")]
 		static public var BgFrontGraphic:Class;
 		
@@ -50,6 +53,7 @@ package
 		[Embed(source="../assets/sprites/figure5_blue.png")]
 		static public var Figure5BlueGraphic:Class;
 		
+		/*
 		[Embed(source="../assets/sprites/testBG1.png")]
 		static public var Test1Img:Class;
 		
@@ -58,6 +62,7 @@ package
 		
 		[Embed(source="../assets/sprites/testBG3.png")]
 		static public var Test3Img:Class;
+		*/
 		
 		
 		/* AUDIO */
