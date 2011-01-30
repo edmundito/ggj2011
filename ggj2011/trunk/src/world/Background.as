@@ -11,7 +11,7 @@ package world
 		private var _current:int = 0;
 		private var _phase:uint = 0;
 		
-		static private const MAX_PHASES = 3;
+		static private const MAX_PHASES:uint = 3;
 		
 		public function Background(Graphic:Class, height:uint = 120) 
 		{

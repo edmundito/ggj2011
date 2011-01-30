@@ -17,11 +17,22 @@ package
 		[Embed(source="../assets/sprites/bg_front.png")]
 		static public var BgFrontGraphic:Class;
 		
-		//[Embed(source="../assets/sprites/ground.png")]
-		//static public var GroundImg:Class;
+		/* HUD */
 		
-		[Embed(source="../assets/sprites/keypress.png")]
-		static public var KeyGraphic:Class;
+		[Embed(source="../assets/sprites/blue1key.png")]
+		static public var BlueKeyGraphic:Class;
+		
+		[Embed(source="../assets/sprites/red1key.png")]
+		static public var RedKeyGraphic:Class;
+		
+		[Embed(source="../assets/sprites/blue2key.png")]
+		static public var Blue2KeyGraphic:Class;
+		
+		[Embed(source="../assets/sprites/red2key.png")]
+		static public var Red2KeyGraphic:Class;
+		
+		
+		/* FIGURES */
 		
 		[Embed(source="../assets/sprites/figure1_red.png")]
 		static public var Figure1RedGraphic:Class;
@@ -52,17 +63,6 @@ package
 		
 		[Embed(source="../assets/sprites/figure5_blue.png")]
 		static public var Figure5BlueGraphic:Class;
-		
-		/*
-		[Embed(source="../assets/sprites/testBG1.png")]
-		static public var Test1Img:Class;
-		
-		[Embed(source="../assets/sprites/testBG2.png")]
-		static public var Test2Img:Class;
-		
-		[Embed(source="../assets/sprites/testBG3.png")]
-		static public var Test3Img:Class;
-		*/
 		
 		
 		/* AUDIO */

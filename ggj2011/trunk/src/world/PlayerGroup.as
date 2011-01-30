@@ -17,14 +17,15 @@ package world
 		private var _player:PlayerSprite;
 		private var _figureGroup:FigureGroup;
 		private var _emitterGroup:FlxGroup;
-		private var _keyText:FlxText;
-		private var _keySprite:FlxSprite;
 		private var _buildKey:String = "";
 		private var _buildCount:uint = 0;
 		private var _buildTimes:Array = [];
 		private var _overlappingFigure:FigureSprite;
 		private var _completedFigures:Array = [];
 		private var _scoring:Boolean = false;
+		
+		private var _keyBubble:KeyBubble;
+		private var _playerKeyBubble:KeyBubble;
 		
 		public function get buildCount():uint
 		{
@@ -46,22 +47,13 @@ package world
 			_figureGroup = new FigureGroup(player.colorKey);
 			add(_figureGroup);
 			
-			_keySprite = new FlxSprite();
-			_keySprite.loadGraphic(Assets.KeyGraphic, true, true, 32, 32);
-			_keySprite.addAnimation("idle", [0, 1], 4, true);
-			_keySprite.visible = false;
-			_keySprite.play("idle");
-			add(_keySprite);
-			
-			_keyText = new FlxText(0, 0, 20, "");
-			_keyText.visible = false;
-			add(_keyText);
+			_keyBubble = new KeyBubble(player.colorKey, this, 31, 32);
 			
 			_player = player;
 			add(_player);
 			
 			// Ground
-			_backgroundFront = new Background(Assets.BgFrontGraphic, 16);
+			_backgroundFront = new Background(Assets.BgFrontGraphic, 14);
 			_backgroundFront.next();
 			_backgroundFront.offset.x = 0;
 			_backgroundFront.offset.y = _backgroundFront.height;
@@ -101,20 +93,11 @@ package world
 					if (_buildKey == "")
 					{
 						_buildKey = Globals.randomKeyMgr.getFreeKey();
-						_keyText.text = _buildKey;
 						
-						// Show key hint...
-						_keyText.visible = true;
-						_keyText.x = figure.x + 10;
-						_keyText.y = figure.y - figure.height - 3;
-						
-						_keySprite.visible = true;
-						_keySprite.x = figure.x;
-						_keySprite.y = figure.y - figure.height - 10;
+						_keyBubble.show(figure.x, figure.y - figure.height, _buildKey);
 					}
 					
-					
-					
+
 					isNearFigure = true;
 					
 					// Player pressing key...
@@ -143,8 +126,7 @@ package world
 							Globals.randomKeyMgr.releaseKey(_buildKey);
 							_buildKey = "";
 							
-							_keyText.visible = false;
-							_keySprite.visible = false;
+							_keyBubble.hide();
 							addEmitter(figure.x , figure.y - 20);
 							FlxG.play(Assets.BuiltSound);
 							_overlappingFigure = null;
@@ -161,8 +143,7 @@ package world
 			// No longer near figure and key hint is showing
 			if (!isNearFigure && _overlappingFigure)
 			{
-				_keyText.visible = false;
-				_keySprite.visible = false;
+				_keyBubble.hide()
 				Globals.randomKeyMgr.releaseKey(_buildKey);
 				_buildKey = "";
 				_overlappingFigure = null;
@@ -217,8 +198,7 @@ package world
 			_player.play("idle");
 			_figureGroup.score(_completedFigures);
 			_player.x = FlxG.width / 2;
-			_keyText.visible = false;
-			_keySprite.visible = false;
+			_keyBubble.hide();
 		}
 		
 		public function nextSeason():void
