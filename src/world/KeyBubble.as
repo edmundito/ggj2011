@@ -25,6 +25,7 @@ package world
 		public function KeyBubble(colorKey:String, parent:FlxGroup, width:uint, height:uint, twoKeys:Boolean = false)
 		{
 			_keySprite = new FlxSprite();
+			_keySprite.fixed = false;
 			_keySprite.loadGraphic(KEY_GRAPHICS[colorKey], true, true, width, height);
 			_keySprite.addAnimation("idle", [1, 0], 4, true);
 			_keySprite.visible = false;
@@ -50,8 +51,16 @@ package world
 			_keyText.text = key1;
 			
 			_keyText.visible = true;
-			_keyText.x = x + 10;
-			_keyText.y = y - 3;
+			_keyText.x = x + 11;
+			_keyText.y = y - 4;
+			
+			if (_keyText2 != null)
+			{
+				_keyText2.text = key2;
+				_keyText2.visible = true;
+				_keyText2.x = x + 32;
+				_keyText2.y = y - 4;
+			}
 			
 			_keySprite.visible = true;
 			_keySprite.x = x;
@@ -62,6 +71,11 @@ package world
 		{
 			_keyText.visible = false;
 			_keySprite.visible = false;
+			
+			if (_keyText2 != null)
+			{
+				_keyText2.visible = false;
+			}
 		}
 		
 	}

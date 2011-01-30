@@ -24,7 +24,7 @@ package world
 		private var _completedFigures:Array = [];
 		private var _scoring:Boolean = false;
 		
-		private var _keyBubble:KeyBubble;
+		private var _figureKeyBubble:KeyBubble;
 		private var _playerKeyBubble:KeyBubble;
 		
 		public function get buildCount():uint
@@ -46,11 +46,13 @@ package world
 			
 			_figureGroup = new FigureGroup(player.colorKey);
 			add(_figureGroup);
+			_figureKeyBubble = new KeyBubble(player.colorKey, this, 31, 32);
 			
-			_keyBubble = new KeyBubble(player.colorKey, this, 31, 32);
 			
 			_player = player;
 			add(_player);
+			
+			_playerKeyBubble = new KeyBubble(player.colorKey + "2", this, 55, 32, true);
 			
 			// Ground
 			_backgroundFront = new Background(Assets.BgFrontGraphic, 14);
@@ -74,6 +76,15 @@ package world
 				return;
 			}
 			
+			if (_player.state == PlayerSprite.STATE_BIRTH && !_playerKeyBubble.isVisible)
+			{
+				_playerKeyBubble.show(_player.x + _player.width * 0.25, _player.y - _player.height * 0.75, _player.moveKeyA, _player.moveKeyB);
+			}
+			else if (_player.state != PlayerSprite.STATE_BIRTH && _playerKeyBubble.isVisible)
+			{
+				_playerKeyBubble.hide();
+			}
+			
 			// Update Player
 			for each (var figure:FigureSprite in _figureGroup.members)
 			{
@@ -94,7 +105,7 @@ package world
 					{
 						_buildKey = Globals.randomKeyMgr.getFreeKey();
 						
-						_keyBubble.show(figure.x, figure.y - figure.height, _buildKey);
+						_figureKeyBubble.show(figure.x, figure.y - figure.height, _buildKey);
 					}
 					
 
@@ -126,7 +137,7 @@ package world
 							Globals.randomKeyMgr.releaseKey(_buildKey);
 							_buildKey = "";
 							
-							_keyBubble.hide();
+							_figureKeyBubble.hide();
 							addEmitter(figure.x , figure.y - 20);
 							FlxG.play(Assets.BuiltSound);
 							_overlappingFigure = null;
@@ -143,7 +154,7 @@ package world
 			// No longer near figure and key hint is showing
 			if (!isNearFigure && _overlappingFigure)
 			{
-				_keyBubble.hide()
+				_figureKeyBubble.hide()
 				Globals.randomKeyMgr.releaseKey(_buildKey);
 				_buildKey = "";
 				_overlappingFigure = null;
@@ -198,7 +209,7 @@ package world
 			_player.play("idle");
 			_figureGroup.score(_completedFigures);
 			_player.x = FlxG.width / 2;
-			_keyBubble.hide();
+			_figureKeyBubble.hide();
 		}
 		
 		public function nextSeason():void

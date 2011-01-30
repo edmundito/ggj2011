@@ -29,6 +29,16 @@ package sprites
 		private var _state:uint = 1;
 		private var _colorKey:String;
 		
+		public function get moveKeyA():String
+		{
+			return _moveKeyA;
+		}
+		
+		public function get moveKeyB():String
+		{
+			return _moveKeyB;
+		}
+		
 		public function set state(value:uint):void
 		{
 			if (_state == value)
