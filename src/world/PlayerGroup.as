@@ -16,6 +16,7 @@ package world
 		private var _player:PlayerSprite;
 		private var _ground:FlxGroup;
 		private var _figureGroup:FigureGroup;
+		private var _emitterGroup:FlxGroup;
 		
 		public function PlayerGroup(player:PlayerSprite) 
 		{
@@ -43,6 +44,9 @@ package world
 				_ground.add(sprite);
 			}
 			
+			_emitterGroup = new FlxGroup;
+			add(_emitterGroup);
+			
 			_figureGroup = new FigureGroup;
 			add(_figureGroup);
 			
@@ -60,6 +64,12 @@ package world
 				{
 					figure.buildStep();
 					_player.building();
+					
+					if (figure.isDone)
+					{
+						addEmitter(figure.x , figure.y-20);
+					}
+					
 					break;
 				}
 			}
@@ -71,6 +81,10 @@ package world
 				{
 					_player.x = TRANSITIONBUFFER;
 					_figureGroup.next();
+					
+					for each (var emitter:FlxEmitter in _emitterGroup.members)
+						emitter.kill();
+					_emitterGroup.members.splice(0, _emitterGroup.members.length);
 				}
 				else
 				{
@@ -81,6 +95,24 @@ package world
 			super.update();
 		}
 		
+		private function addEmitter(x:Number, y:Number):void
+		{
+			var emitter:FlxEmitter = new FlxEmitter(x, y);
+			emitter.setXSpeed( -15, 15);
+			emitter.setYSpeed( -70, -90);
+			emitter.gravity = 80;
+			
+			for(var i:int = 0; i < 15; i++)
+			{
+				var particle:FlxSprite = new FlxSprite();
+				particle.createGraphic(2, 2, 0xffffffff);
+				emitter.add(particle);
+			}
+			
+			emitter.start();
+			_emitterGroup.add(emitter);
+		}
+
 	}
 
 }
