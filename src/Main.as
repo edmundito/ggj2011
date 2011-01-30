@@ -23,7 +23,7 @@ package
 			Globals;
 			
 			addEventListener(Event.ADDED_TO_STAGE, onAddedToStage);
-			super(320, 240, GameState, ZOOM);
+			super(320, 240, LogoState, ZOOM);
 			
 			this.useDefaultHotKeys = false;
 			

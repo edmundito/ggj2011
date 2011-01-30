@@ -5,6 +5,9 @@ package
 		[Embed(source="../assets/sprites/runningLatte.png")]
 		static public var LogoGraphic:Class;
 		
+		[Embed(source="../assets/sprites/title.png")]
+		static public var TitleGraphic:Class;
+		
 		[Embed(source="../assets/sprites/bluePlayer.png")]
 		static public var BluePlayerGraphic:Class;
 		
@@ -16,6 +19,9 @@ package
 		
 		[Embed(source="../assets/sprites/bg_front.png")]
 		static public var BgFrontGraphic:Class;
+		
+		[Embed(source="../assets/sprites/sun.png")]
+		static public var SunGraphic:Class;
 		
 		/* HUD */
 		
@@ -97,6 +103,9 @@ package
 		
 		/* AUDIO */
 		
+		[Embed(source="../assets/audio/HereComesSunSlow.mp3")]
+		static public var BgmSlowSound:Class;
+		
 		[Embed(source="../assets/audio/herecomes8bit.mp3")]
 		static public var BgmSound:Class;
 		
@@ -105,5 +114,8 @@ package
 		
 		[Embed(source="../assets/audio/Builtred.mp3")]
 		static public var BuiltRedSound:Class;
+		
+		[Embed(source="../assets/audio/pointdeath.mp3")]
+		static public var PointDeathSound:Class;
 	}
 }

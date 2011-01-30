@@ -23,6 +23,12 @@ package world
 		private var _overlappingFigure:FigureSprite;
 		private var _completedFigures:Array = [];
 		private var _scoring:Boolean = false;
+		private var _sun:FlxSprite;
+		private var _sunDone:Boolean = false;
+		private var _playerMeltCooldown:Number = 2.0;
+		private var _totalScoreText:FlxText;
+		private var _totalScore:uint = 0;
+		public var _complete:Boolean = false;
 		
 		private var _figureKeyBubble:KeyBubble;
 		private var _playerKeyBubble:KeyBubble;
@@ -41,6 +47,7 @@ package world
 			add(_background);
 			_background.next();
 			
+			
 			_emitterGroup = new FlxGroup();
 			add(_emitterGroup);
 			
@@ -53,6 +60,13 @@ package world
 			add(_player);
 			
 			_playerKeyBubble = new KeyBubble(player.colorKey + "2", this, 55, 32, true);
+			
+			// Sun in the Front
+			_sun = new FlxSprite(330, 0);
+			_sun.loadGraphic(Assets.SunGraphic, true, false, 64, 64);
+			_sun.addAnimation("idle", [0, 1, 2], 1, true);
+			_sun.play("idle");
+			add(_sun);
 			
 			// Ground
 			_backgroundFront = new Background(Assets.BgFrontGraphic, 14);
@@ -69,9 +83,52 @@ package world
 			
 			var isNearFigure:Boolean = false;
 			
-			// No update if score
+			// Scoring update
 			if (_scoring)
 			{
+				if (!_sunDone)
+				{
+					_sun.x -= 20 * FlxG.elapsed;
+					if (_sun.x <= 240)
+					{
+						_sun.x = 240;
+						_sunDone = true;
+					}
+				}
+				else
+				{
+					if (!_figureGroup._isDoneMelting)
+					{
+						var time:Number = _buildTimes.pop();
+						var score:uint = (10.0 - time) * 100;
+						FlxG.log(score.toString());
+						if (score <= 0) score = 100;
+						_figureGroup.melt(score);
+						_totalScore += score;
+					}
+					else
+					{
+						if (_playerMeltCooldown == 2.0)
+						{
+							// Melt the player
+							_player.play("melt");
+							
+							_totalScoreText = new FlxText(50, this.y + 40, 200);
+							_totalScoreText.text = "Total Score: " + _totalScore.toString();
+							//_totalScoreText.color = 0xffffffff;
+							add(_totalScoreText);
+							_totalScoreText.setFormat("system", 10, 0xff000000, "center");
+							_complete = true;
+							
+							FlxG.play(Assets.PointDeathSound, 0.5);
+						}
+						
+						_playerMeltCooldown -= FlxG.elapsed;
+						
+						_totalScore;
+					}
+				}
+				
 				super.update();
 				return;
 			}
@@ -187,14 +244,14 @@ package world
 		private function addEmitter(x:Number, y:Number):void
 		{
 			var emitter:FlxEmitter = new FlxEmitter(x, y);
-			emitter.setXSpeed( -15, 15);
-			emitter.setYSpeed( -70, -90);
+			emitter.setXSpeed( -25, 25);
+			emitter.setYSpeed( -70, -110);
 			emitter.gravity = 80;
 			
-			for(var i:int = 0; i < 15; i++)
+			for(var i:int = 0; i < 40; i++)
 			{
 				var particle:FlxSprite = new FlxSprite();
-				particle.createGraphic(2, 2, 0xffffffff);
+				particle.createGraphic(2, 2, 0xffE5FB05);
 				emitter.add(particle);
 			}
 			

@@ -20,17 +20,17 @@ package states
 			
 			super.create();
 			
-			FlxG.flash.start(0xff000000, 1.0, onFlashDone1);
+			FlxG.flash.start(0xff000000, 2.0, onFlashDone1);
 		}
 		
 		private function onFlashDone1():void
 		{
-			FlxG.flash.start(0x00000000, 1.0, onFlashDone2);
+			FlxG.flash.start(0x00000000, 3.0, onFlashDone2);
 		}
 		
 		private function onFlashDone2():void
 		{
-			FlxG.fade.start(0xff0000000, 1.0, onFadeDone);
+			FlxG.fade.start(0xff0000000, 2.0, onFadeDone);
 		}
 		
 		private function onFadeDone():void
