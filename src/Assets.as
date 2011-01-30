@@ -2,6 +2,9 @@ package
 {
 	public class Assets
 	{
+		[Embed(source="../assets/sprites/runningLatte.png")]
+		static public var LogoGraphic:Class;
+		
 		[Embed(source="../assets/sprites/bluePlayer.png")]
 		static public var BluePlayerGraphic:Class;
 		
