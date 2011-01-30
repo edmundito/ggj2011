@@ -20,6 +20,7 @@ package world
 		private var _keyText:FlxText;
 		private var _buildKey:String = "";
 		private var _buildCount:uint = 0;
+		private var _buildTimes:Array = [];
 		
 		public function get buildCount():uint
 		{
@@ -97,6 +98,11 @@ package world
 						if (_player.state != PlayerSprite.STATE_BUILD)
 						{
 							_player.state = PlayerSprite.STATE_BUILD;
+							_buildTimes.push(0.0);
+						}
+						else
+						{
+							_buildTimes[_buildTimes.length - 1] += FlxG.elapsed;
 						}
 						
 						figure.buildStep();
