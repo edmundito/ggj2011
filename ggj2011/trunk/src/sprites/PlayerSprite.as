@@ -50,7 +50,7 @@ package sprites
 			_moveKeyA = MoveKeyA;
 			_moveKeyB = MoveKeyB;
 			
-			var GraphicClass:Class = (BaseName == "red")? Assets.BluePlayerGraphic : Assets.BluePlayerGraphic;
+			var GraphicClass:Class = (BaseName == "red")? Assets.RedPlayerGraphic : Assets.BluePlayerGraphic;
 			
 			loadGraphic(GraphicClass, true, true, 64, 64);
 			this.width = 64;
@@ -176,13 +176,16 @@ package sprites
 		
 		private function updateTwoKeys():void
 		{
-			if (FlxG.keys.justPressed(_moveKeyA) && !_alt)
+			if (_state == STATE_RUN)
 			{
-				moveForward();
-			}
-			else if (FlxG.keys.justPressed(_moveKeyB) && _alt)
-			{
-				moveForward();
+				if (FlxG.keys.justPressed(_moveKeyA) && !_alt)
+				{
+					moveForward();
+				}
+				else if (FlxG.keys.justPressed(_moveKeyB) && _alt)
+				{
+					moveForward();
+				}
 			}
 			
 			if (_state == STATE_BUILD)

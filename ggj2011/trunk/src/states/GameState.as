@@ -14,8 +14,6 @@ package states
 		private var _player1Strip:PlayerGroup;
 		private var _player2Strip:PlayerGroup;
 		
-		private var _figure:FigureSprite;
-		
 		override public function create():void
 		{
 			
@@ -31,29 +29,11 @@ package states
 			
 			_player2Strip = new PlayerGroup(_player2);
 			_player2Strip.y = FlxG.height * 0.5;
-			add(_player2Strip);
-			
-			
-			_figure = new FigureSprite(FlxG.width * 0.5, FlxG.height * 0.5, Assets.BluePlayerGraphic, 16);
-			add(_figure);
-			
-			_player1.state = PlayerSprite.STATE_BUILD;
-			
+			add(_player2Strip);			
 		}
 		
 		override public function update():void
-		{
-			if (FlxG.keys.justPressed("B") && !_figure.isDone)
-			{
-				_figure.buildStep();
-				_player1.building();
-				
-				if (_figure.isDone)
-				{
-					_player1.state = PlayerSprite.STATE_RUN;
-				}
-			}
-			
+		{			
 			super.update();
 		}
 		

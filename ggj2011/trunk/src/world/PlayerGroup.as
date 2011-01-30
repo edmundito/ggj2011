@@ -1,9 +1,10 @@
 package world 
-{
+{	
 	import org.flixel.*;
 	
-	import Assets;
+	import sprites.FigureSprite;
 	import sprites.PlayerSprite;
+	
 	import world.Background;
 	
 	public class PlayerGroup extends FlxGroup 
@@ -12,6 +13,7 @@ package world
 		
 		private var _background:Background;
 		private var _player:PlayerSprite;
+		private var _figure:FigureSprite;
 		private var _ground:FlxGroup;
 		
 		public function PlayerGroup(player:PlayerSprite) 
@@ -39,14 +41,37 @@ package world
 				sprite.y = 90;
 				_ground.add(sprite);
 			}
-		
+			
 			_player = player;
+		
+			// Figures are created before player :)
+			_figure = new FigureSprite(FlxG.width * 0.5, _player.y - 5, Assets.BluePlayerGraphic, 16);
+			add(_figure);
+			
+			
 			add(_player);
 		}
 		
 		override public function update():void
 		{
-			super.update();
+			if (_player.overlaps(_figure) && _player.state == PlayerSprite.STATE_RUN && !_figure.isDone)
+			{
+				_player.state = PlayerSprite.STATE_BUILD;	
+			}
+			
+			// Update Player
+			if (_player.state == PlayerSprite.STATE_BUILD && FlxG.keys.justPressed("B") && !_figure.isDone)
+			{
+				_figure.buildStep();
+				_player.building();
+				
+				if (_figure.isDone)
+				{
+					_player.state = PlayerSprite.STATE_RUN;
+				}
+			}
+			
+			// Update Background
 			
 			if (_player.x > FlxG.width - TRANSITIONBUFFER)
 			{
@@ -59,6 +84,8 @@ package world
 					_player.x = FlxG.width - TRANSITIONBUFFER;
 				}
 			}
+			
+			super.update();
 		}
 		
 	}
