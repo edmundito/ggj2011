@@ -58,7 +58,7 @@ package world
 			_emitterGroup = new FlxGroup();
 			add(_emitterGroup);
 			
-			_figureGroup = new FigureGroup();
+			_figureGroup = new FigureGroup(player.colorKey);
 			add(_figureGroup);
 			
 			_keySprite = new FlxSprite();
