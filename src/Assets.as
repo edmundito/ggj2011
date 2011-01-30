@@ -22,5 +22,14 @@ package
 		
 		[Embed(source="../assets/sprites/testBG3.png")]
 		static public var Test3Img:Class;
+		
+		
+		/* AUDIO */
+		
+		[Embed(source="../assets/audio/herecomes8bit.mp3")]
+		static public var BgmSound:Class;
+		
+		[Embed(source="../assets/audio/Built.mp3")]
+		static public var BuiltSound:Class;
 	}
 }

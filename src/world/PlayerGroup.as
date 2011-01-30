@@ -21,6 +21,7 @@ package world
 		private var _buildKey:String = "";
 		private var _buildCount:uint = 0;
 		private var _buildTimes:Array = [];
+		private var _overlappingFigure:FigureSprite;
 		
 		public function get buildCount():uint
 		{
@@ -79,6 +80,16 @@ package world
 				// Player is colliding with figure that has not been built!
 				if (_player.overlaps(figure) && !figure.isDone)
 				{
+					if (_overlappingFigure != figure)
+					{
+						if (_buildKey != "")
+						{
+							Globals.randomKeyMgr.releaseKey(_buildKey);
+							_buildKey = "";
+						}
+						_overlappingFigure = figure;
+					}
+					
 					if (_buildKey == "")
 					{
 						_buildKey = Globals.randomKeyMgr.getFreeKey();
@@ -120,6 +131,8 @@ package world
 							
 							_keyText.visible = false;
 							addEmitter(figure.x , figure.y-20);
+							FlxG.play(Assets.BuiltSound);
+							_overlappingFigure = null;
 						}
 					}
 					
@@ -128,9 +141,12 @@ package world
 			}
 			
 			// No longer near figure and key hint is showing
-			if (!isNearFigure && _keyText.visible)
+			if (!isNearFigure && _overlappingFigure)
 			{
 				_keyText.visible = false;
+				Globals.randomKeyMgr.releaseKey(_buildKey);
+				_buildKey = "";
+				_overlappingFigure = null;
 			}
 			
 			// Next Background if needed
