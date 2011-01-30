@@ -24,19 +24,19 @@ package world
 			
 			if (current == 0)
 			{
-				this.add(new FigureSprite(FlxG.width * 0.5, FIGUREOFFSET, Assets.BluePlayerGraphic, 16));
+				this.add(new FigureSprite(FlxG.width * 0.5, this.y + FIGUREOFFSET, Assets.BluePlayerGraphic, 16));
 			}
 			else if (current == 1)
 			{
-				this.add(new FigureSprite(FlxG.width / 3, FIGUREOFFSET, Assets.BluePlayerGraphic, 16));
-				this.add(new FigureSprite(FlxG.width / 3 * 2, FIGUREOFFSET, Assets.BluePlayerGraphic, 16));
+				this.add(new FigureSprite(FlxG.width / 3, this.y + FIGUREOFFSET, Assets.BluePlayerGraphic, 16));
+				this.add(new FigureSprite(FlxG.width / 3 * 2, this.y + FIGUREOFFSET, Assets.BluePlayerGraphic, 16));
 			}
 			else
 			{
 				
-				this.add(new FigureSprite(FlxG.width / 4, FIGUREOFFSET, Assets.BluePlayerGraphic, 16));
-				this.add(new FigureSprite(FlxG.width / 4 * 2, FIGUREOFFSET, Assets.BluePlayerGraphic, 16));
-				this.add(new FigureSprite(FlxG.width / 4 * 3, FIGUREOFFSET, Assets.BluePlayerGraphic, 16));
+				this.add(new FigureSprite(FlxG.width / 4, this.y + FIGUREOFFSET, Assets.BluePlayerGraphic, 16));
+				this.add(new FigureSprite(FlxG.width / 4 * 2, this.y + FIGUREOFFSET, Assets.BluePlayerGraphic, 16));
+				this.add(new FigureSprite(FlxG.width / 4 * 3, this.y + FIGUREOFFSET, Assets.BluePlayerGraphic, 16));
 			}
 			
 			current++;
