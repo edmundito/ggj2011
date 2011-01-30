@@ -27,7 +27,7 @@ package
 			
 			this.useDefaultHotKeys = false;
 			
-			FlxG.mouse.show();
+			//FlxG.mouse.show();
 		}
 			
 		private function onAddedToStage(event:Event):void

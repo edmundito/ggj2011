@@ -26,6 +26,7 @@ package sprites
 		static private const MAX_BUILD_ANIM_FRAMES:uint = 2;
 		
 		private var _state:uint = 1;
+		private var _colorKey:String;
 		
 		public function set state(value:uint):void
 		{
@@ -44,17 +45,23 @@ package sprites
 			return _state;
 		}
 		
-		public function PlayerSprite(BaseName:String, MoveKeyA:String, MoveKeyB:String, Facing:uint, X:Number=0, Y:Number=0)
+		public function get colorKey():String
+		{
+			return _colorKey;
+		}
+		
+		public function PlayerSprite(ColorKey:String, MoveKeyA:String, MoveKeyB:String, Facing:uint, X:Number=0, Y:Number=0)
 		{
 			super(X, Y);
 			
+			_colorKey = ColorKey;
 			_moveKeyA = MoveKeyA;
 			_moveKeyB = MoveKeyB;
 			Globals.randomKeyMgr.addKeyToIgnoreList(_moveKeyA);
 			Globals.randomKeyMgr.addKeyToIgnoreList(_moveKeyB);
 			
 			
-			var GraphicClass:Class = (BaseName == "red")? Assets.RedPlayerGraphic : Assets.BluePlayerGraphic;
+			var GraphicClass:Class = (ColorKey == "red")? Assets.RedPlayerGraphic : Assets.BluePlayerGraphic;
 			
 			loadGraphic(GraphicClass, true, true, 64, 64);
 			this.width = 64;
