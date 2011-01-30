@@ -8,6 +8,7 @@ package sprites
 		
 		private var _buildSteps:uint;
 		private var _currentStep:uint = 0;
+		private var _currentAnim:String;
 		private var _didStep:Boolean = false;
 		private var _didStepDelta:int = 1;
 		
@@ -33,6 +34,7 @@ package sprites
 			addAnimation("build1", [1]);
 			addAnimation("build2", [2]);
 			addAnimation("build3", [3]);
+			
 		}
 		
 		public function buildStep():void
@@ -41,13 +43,14 @@ package sprites
 			{
 				_currentStep++;
 				_didStep = true;
+				_currentAnim = "build" + (Math.floor((_currentStep / _buildSteps) * (NUM_FRAMES - 1)) as int);
 			}
 		}
 		
 		override public function update():void
 		{
-			play("build" + (Math.floor(_currentStep / _buildSteps * NUM_FRAMES) as int));
-			
+			play(_currentAnim);
+
 			if (_didStep)
 			{
 				 this.x += _didStepDelta;
