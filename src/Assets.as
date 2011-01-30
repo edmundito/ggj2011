@@ -14,6 +14,9 @@ package
 		[Embed(source="../assets/sprites/ground.png")]
 		static public var GroundImg:Class;
 		
+		[Embed(source="../assets/sprites/keypress.png")]
+		static public var KeyGraphic:Class;
+		
 		[Embed(source="../assets/sprites/testBG1.png")]
 		static public var Test1Img:Class;
 		

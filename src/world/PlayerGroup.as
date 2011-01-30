@@ -18,6 +18,7 @@ package world
 		private var _figureGroup:FigureGroup;
 		private var _emitterGroup:FlxGroup;
 		private var _keyText:FlxText;
+		private var _keySprite:FlxSprite;
 		private var _buildKey:String = "";
 		private var _buildCount:uint = 0;
 		private var _buildTimes:Array = [];
@@ -60,6 +61,12 @@ package world
 			_figureGroup = new FigureGroup();
 			add(_figureGroup);
 			
+			_keySprite = new FlxSprite();
+			_keySprite.loadGraphic(Assets.KeyGraphic, true, true, 32, 32);
+			_keySprite.addAnimation("idle", [0, 1], 4, true);
+			_keySprite.visible = false;
+			_keySprite.play("idle");
+			add(_keySprite);
 			
 			_keyText = new FlxText(0, 0, 20, "");
 			_keyText.visible = false;
@@ -98,8 +105,12 @@ package world
 					
 					// Show key hint...
 					_keyText.visible = true;
-					_keyText.x = figure.x;
-					_keyText.y = figure.y - figure.height;
+					_keyText.x = figure.x + 10;
+					_keyText.y = figure.y - figure.height + 7;
+					
+					_keySprite.visible = true;
+					_keySprite.x = figure.x;
+					_keySprite.y = figure.y - figure.height;
 					
 					isNearFigure = true;
 					
@@ -130,6 +141,7 @@ package world
 							_buildKey = "";
 							
 							_keyText.visible = false;
+							_keySprite.visible = false;
 							addEmitter(figure.x , figure.y-20);
 							FlxG.play(Assets.BuiltSound);
 							_overlappingFigure = null;
