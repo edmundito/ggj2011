@@ -82,6 +82,18 @@ package
 		[Embed(source="../assets/sprites/figure8_blue.png")]
 		static public var Figure8BlueGraphic:Class;
 		
+		[Embed(source="../assets/sprites/figure9_red.png")]
+		static public var Figure9RedGraphic:Class;
+		
+		[Embed(source="../assets/sprites/figure9_blue.png")]
+		static public var Figure9BlueGraphic:Class;
+		
+		[Embed(source="../assets/sprites/figure10_red.png")]
+		static public var Figure10RedGraphic:Class;
+		
+		[Embed(source="../assets/sprites/figure10_blue.png")]
+		static public var Figure10BlueGraphic:Class;
+		
 		
 		/* AUDIO */
 		
@@ -89,6 +101,9 @@ package
 		static public var BgmSound:Class;
 		
 		[Embed(source="../assets/audio/Built.mp3")]
-		static public var BuiltSound:Class;
+		static public var BuiltBlueSound:Class;
+		
+		[Embed(source="../assets/audio/Builtred.mp3")]
+		static public var BuiltRedSound:Class;
 	}
 }

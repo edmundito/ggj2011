@@ -10,6 +10,11 @@ package sprites
 		static public const STATE_BUILD:uint = 2;
 		static public const STATE_SCORING:uint = 3;
 		
+		static public const BUILT_SOUNDS:Object = {
+			"blue": Assets.BuiltBlueSound,
+			"red": Assets.BuiltRedSound
+		};
+		
 		private const MOVE_SPEED:int = 70;
 		private const WALK_FPS:int = 4;
 		
@@ -218,6 +223,7 @@ package sprites
 				// Finished birth state? run lola run!
 				if (_state == STATE_BIRTH)
 				{
+					FlxG.play(PlayerSprite.BUILT_SOUNDS[_colorKey]);
 					this.state = STATE_RUN;
 				}
 			}
