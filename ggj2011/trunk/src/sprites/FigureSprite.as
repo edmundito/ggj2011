@@ -2,6 +2,7 @@ package sprites
 {
 	import org.flixel.FlxSprite;
 	import org.flixel.FlxG;
+	import org.flixel.FlxText;
 	
 	public class FigureSprite extends FlxSprite
 	{
@@ -13,6 +14,8 @@ package sprites
 		public var _currentAnim:String;
 		private var _didStep:Boolean = false;
 		private var _didStepDelta:int = 1;
+		public var _scoreText:FlxText;
+		private var _TextYPos:uint = 10;
 		
 		private var _birthFrames:uint;
 		private var _idleFrames:uint;
@@ -49,6 +52,11 @@ package sprites
 			
 			_buildSteps = buildSteps;
 			
+			// Score Text
+			_scoreText = new FlxText(this.x, this.y + _TextYPos, 30);
+			_scoreText.visible = true;
+			_scoreText.color = 0xff000000;
+			
 			// Frames
 			_birthFrames = 4;
 			_meltFrames = 1;
@@ -80,6 +88,8 @@ package sprites
 				_idleFrames = 3;
 				addAnimation("idle", [4,5,6], ANIM_FPS, true);
 			}
+			
+			addAnimation("melt", [_birthFrames + _idleFrames], 1, true);
 		}
 		
 		public function buildStep():void
@@ -104,6 +114,11 @@ package sprites
 			}
 			
 			super.update();
+		}
+		
+		public function melt():void
+		{
+			_currentAnim = "melt";
 		}
 		
 	}

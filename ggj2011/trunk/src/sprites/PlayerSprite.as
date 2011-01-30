@@ -106,6 +106,8 @@ package sprites
 			addAnimation("birth8", [2]);
 			addAnimation("birth9", [3]);
 			
+			addAnimation("melt", [12, 13], 1, false);
+			
 			
 			this.facing = Facing;
 			if (this.facing == RIGHT)
