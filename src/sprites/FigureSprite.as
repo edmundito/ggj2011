@@ -29,9 +29,9 @@ package sprites
 			super(X, Y);
 			
 			_graphic = Graphic;
-			loadGraphic(Graphic, true, false, 64, 64);
-			this.width = 64;
-			this.height = 64;
+			loadGraphic(Graphic, true, false, 80, 80);
+			this.width = 80;
+			this.height = 80;
 			
 			this.offset.x = this.width * 0.5;
 			this.offset.y = this.height;
