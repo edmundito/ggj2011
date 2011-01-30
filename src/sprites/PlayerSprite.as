@@ -14,19 +14,21 @@ package sprites
 		private var _moveKeyB:String;
 		private var _moveDirection:int;
 		
-		[Embed(source="../../assets/sprites/snowman.png")]
-		static protected var SnowmanImg:Class;
+		private var _isAltKey:Boolean = false;
+		private var _currentAnimFrame:uint = 0;
+		public const MAX_WALK_ANIM_FRAMES:uint = 2;
 		
-		public function PlayerSprite(MoveKeyA:String, MoveKeyB:String, Facing:uint, X:Number=0, Y:Number=0)
+		public function PlayerSprite(BaseName:String, MoveKeyA:String, MoveKeyB:String, Facing:uint, X:Number=0, Y:Number=0)
 		{
 			super(X, Y);
 			
 			_moveKeyA = MoveKeyA;
 			_moveKeyB = MoveKeyB;
 			
+			var GraphicClass:Class = (BaseName == "red")? Assets.RedWalkGraphic : Assets.BlueWalkGraphic;
 			
-			loadGraphic(SnowmanImg, true, true, 51, 64);
-			this.width = 51;
+			loadGraphic(GraphicClass, true, true, 64, 64);
+			this.width = 64;
 			this.height = 64;
 			
 			this.offset.x = this.width * 0.5;
@@ -35,9 +37,8 @@ package sprites
 			addAnimation("idle", [0]);
 			addAnimation("walking", [1, 2, 0], WALK_FPS, true);
 			
-			addAnimation("walk0", [0], WALK_FPS, true);
-			addAnimation("walk1", [1], WALK_FPS, true);
-			addAnimation("walk2", [2], WALK_FPS, true);
+			addAnimation("walk0", [1], WALK_FPS, true);
+			addAnimation("walk1", [0], WALK_FPS, true);
 			
 			this.facing = Facing;
 			if (this.facing == RIGHT)
@@ -128,10 +129,6 @@ package sprites
 				_animTime -= 1 / WALK_FPS;
 			}
 		}
-		
-		private var _isAltKey:Boolean = false;
-		private var _currentAnimFrame:uint = 0;
-		public const MAX_WALK_ANIM_FRAMES:uint = 3;
 		
 		private function moveForward():void
 		{

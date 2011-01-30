@@ -20,7 +20,8 @@ package world
 			_ground = new FlxGroup();
 			add(_ground);
 			
-			var sprite;
+			var sprite:FlxSprite;
+			
 			for (var i:int = 0; i < 8; i++)
 			{
 				sprite = new FlxSprite();
