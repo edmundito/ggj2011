@@ -7,7 +7,7 @@ package world
 	
 	public class FigureGroup extends FlxGroup 
 	{
-		static public const FIGUREOFFSET:int = 108;
+		static public const FIGUREOFFSET:int = 110;
 		
 		public static const FIGURE_GRAPHICS:Object = {
 			"blue": [
