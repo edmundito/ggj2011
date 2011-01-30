@@ -8,6 +8,7 @@ package sprites
 		static public const STATE_BIRTH:uint = 0;
 		static public const STATE_RUN:uint = 1;
 		static public const STATE_BUILD:uint = 2;
+		static public const STATE_SCORING:uint = 3;
 		
 		private const MOVE_SPEED:int = 70;
 		private const WALK_FPS:int = 4;
@@ -112,6 +113,12 @@ package sprites
 		
 		override public function update():void
 		{
+			if (this.state == PlayerSprite.STATE_SCORING)
+			{
+				super.update();
+				return;
+			}
+			
 			// Update Movement
 			updateTwoKeys();
 			

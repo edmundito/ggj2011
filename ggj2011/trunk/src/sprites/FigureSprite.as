@@ -9,7 +9,7 @@ package sprites
 		static public const ANIM_FPS:uint = 5;
 		
 		private var _buildSteps:uint;
-		private var _currentStep:uint = 0;
+		public var _currentStep:uint = 0;
 		public var _currentAnim:String;
 		private var _didStep:Boolean = false;
 		private var _didStepDelta:int = 1;

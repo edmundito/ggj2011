@@ -65,6 +65,37 @@ package world
 			_current++;
 			
 		}
+		
+		public function score(figures:Array):void
+		{
+			this.destroyMembers();
+			
+			var index:uint = 1;
+			for each (var figureGraphic:Class in figures)
+			{
+				var sprite:FigureSprite;
+				
+				// Figure out X
+				var x:uint;
+				var half:uint = FlxG.width/2;
+				
+				if (index % 2)
+				{
+					x = half + FlxG.width / figures.length * index / 2;
+				}
+				else
+				{
+					x = half - FlxG.width / figures.length * index / 2;
+				}
+				
+				sprite = new FigureSprite(x, this.y + FIGUREOFFSET, figureGraphic, 16);
+				sprite._currentStep = 100;
+				sprite._currentAnim = "idle";
+				add(sprite);
+				
+				index++;
+			}
+		}
 	}
 
 }
