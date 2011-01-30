@@ -20,8 +20,8 @@ package states
 			// State name
 			add(new FlxText(0, 0, 100, "Hello, World!")); //adds a 100px wide text field at position 0,0 (upper left)
 			
-			_player1 = new PlayerSprite("blue", "L", "A", FlxSprite.RIGHT, 20, 90);
-			_player2 = new PlayerSprite("red", "H", "G", FlxSprite.RIGHT, 20, 90);
+			_player1 = new PlayerSprite("blue", "A", "D", FlxSprite.RIGHT, 20, 90);
+			_player2 = new PlayerSprite("red", "J", "L", FlxSprite.RIGHT, 20, 90);
 			
 			_player1Strip = new PlayerGroup(_player1);
 			_player1Strip.y = 0;

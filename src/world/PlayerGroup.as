@@ -18,6 +18,7 @@ package world
 		private var _figureGroup:FigureGroup;
 		private var _emitterGroup:FlxGroup;
 		private var _keyText:FlxText;
+		private var _buildKey:String = "";
 		
 		public function PlayerGroup(player:PlayerSprite) 
 		{
@@ -52,7 +53,7 @@ package world
 			add(_figureGroup);
 			
 			
-			_keyText = new FlxText(0, 0, 20, "B");
+			_keyText = new FlxText(0, 0, 20, "");
 			_keyText.visible = false;
 			add(_keyText);
 			
@@ -71,6 +72,12 @@ package world
 				// Player is colliding with figure that has not been built!
 				if (_player.overlaps(figure) && !figure.isDone)
 				{
+					if (_buildKey == "")
+					{
+						_buildKey = Globals.randomKeyMgr.getFreeKey();
+						_keyText.text = _buildKey;
+					}
+					
 					// Show key hint...
 					_keyText.visible = true;
 					_keyText.x = figure.x;
@@ -79,7 +86,7 @@ package world
 					isNearFigure = true;
 					
 					// Player pressing key...
-					if (FlxG.keys.justPressed("B"))
+					if (FlxG.keys.justPressed(_buildKey))
 					{
 						if (_player.state != PlayerSprite.STATE_BUILD)
 						{
@@ -96,6 +103,8 @@ package world
 							_keyText.visible = false;
 							isNearFigure = false;
 							_player.state = PlayerSprite.STATE_RUN;
+							Globals.randomKeyMgr.releaseKey(_buildKey);
+							_buildKey = "";
 						}
 					}
 					
