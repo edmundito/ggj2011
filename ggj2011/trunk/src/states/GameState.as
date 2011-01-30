@@ -20,10 +20,6 @@ package states
 		
 		override public function create():void
 		{
-			
-			// State name
-			add(new FlxText(0, 0, 100, "Hello, World!")); //adds a 100px wide text field at position 0,0 (upper left)
-			
 			_player1 = new PlayerSprite("blue", "A", "S", FlxSprite.RIGHT, 20, 90);
 			_player2 = new PlayerSprite("red", "K", "L", FlxSprite.RIGHT, 20, 90);
 			
