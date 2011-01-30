@@ -23,6 +23,8 @@ package world
 		private var _buildCount:uint = 0;
 		private var _buildTimes:Array = [];
 		private var _overlappingFigure:FigureSprite;
+		private var _completedFigures:Array = [];
+		private var _scoring:Boolean = false;
 		
 		public function get buildCount():uint
 		{
@@ -72,6 +74,13 @@ package world
 		{
 			
 			var isNearFigure:Boolean = false;
+			
+			// No update if score
+			if (_scoring)
+			{
+				super.update();
+				return;
+			}
 			
 			// Update Player
 			for each (var figure:FigureSprite in _figureGroup.members)
@@ -140,6 +149,8 @@ package world
 							FlxG.play(Assets.BuiltSound);
 							_overlappingFigure = null;
 							figure._currentAnim = "idle";
+							
+							_completedFigures.push(figure._graphic);
 						}
 					}
 					
@@ -199,6 +210,22 @@ package world
 			_emitterGroup.add(emitter);
 		}
 
+		public function goToScore():void
+		{
+			_scoring = true;
+			_player.state = PlayerSprite.STATE_SCORING;
+			_player.play("idle");
+			_figureGroup.score(_completedFigures);
+			_player.x = FlxG.width / 2;
+			_keyText.visible = false;
+			_keySprite.visible = false;
+		}
+		
+		public function nextSeason():void
+		{
+			_background.nextSeason();
+			_backgroundFront.nextSeason();
+		}
 	}
 
 }

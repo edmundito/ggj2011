@@ -43,10 +43,32 @@ package states
 				{
 					_endTriggered = true;
 					FlxG.log("Music Ends!");
+					
+					FlxG.fade.start(0xff000000, 2.0, onFadeDone);
 				}
 			}
 			
+			// Temp: To Remove
+			if (FlxG.keys.justPressed("ONE"))
+			{
+				onFadeDone();
+			}
+			
+			if (FlxG.keys.justPressed("TWO"))
+			{
+				_player1Strip.nextSeason();
+				_player2Strip.nextSeason();
+			}
+			
 			super.update();
+		}
+		
+		private function onFadeDone():void
+		{
+			_player1Strip.goToScore();
+			_player2Strip.goToScore();
+			
+			FlxG.flash.start(0xff000000, 2.0);
 		}
 		
 	}
