@@ -72,8 +72,18 @@ package world
 			}
 			else if (_current == 2)
 			{
-				add(new FigureSprite(FlxG.width / 3, this.y + FIGUREOFFSET, _figureGraphics[0], _buildSteps));
-				add(new FigureSprite(FlxG.width / 3 * 2, this.y + FIGUREOFFSET, _figureGraphics[2], _buildSteps));
+				if (_buildSteps == BUILD_INC)
+				{
+					add(new FigureSprite(FlxG.width / 3, this.y + FIGUREOFFSET, _figureGraphics[0], _buildSteps));
+					add(new FigureSprite(FlxG.width / 3 * 2, this.y + FIGUREOFFSET, _figureGraphics[2], _buildSteps));
+				}
+				else
+				{
+					add(new FigureSprite(FlxG.width / 3, this.y + FIGUREOFFSET, _figureGraphics[_figureIndex], _buildSteps));
+					nextFigureIndex();
+					add(new FigureSprite(FlxG.width / 3 * 2, this.y + FIGUREOFFSET, _figureGraphics[_figureIndex], _buildSteps));
+					nextFigureIndex();
+				}
 			}
 			else if (_current >= 3)
 			{	
