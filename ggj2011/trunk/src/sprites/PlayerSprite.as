@@ -21,7 +21,7 @@ package sprites
 		private var _alt:Boolean = false;
 		private var _currentAnimName:uint = 0;
 		private var _currentAnimFrame:uint = 0;
-		static private const MAX_BIRTH_ANIM_FRAMES:uint = 4;
+		static private const MAX_BIRTH_ANIM_FRAMES:uint = 10;
 		static private const MAX_WALK_ANIM_FRAMES:uint = 2;
 		static private const MAX_BUILD_ANIM_FRAMES:uint = 2;
 		
@@ -82,7 +82,13 @@ package sprites
 			addAnimation("birth0", [0]);
 			addAnimation("birth1", [1]);
 			addAnimation("birth2", [2]);
-			addAnimation("birth3", [3]);
+			addAnimation("birth3", [1]);
+			addAnimation("birth4", [2]);
+			addAnimation("birth5", [1]);
+			addAnimation("birth6", [2]);
+			addAnimation("birth7", [5]);
+			addAnimation("birth8", [2]);
+			addAnimation("birth9", [3]);
 			
 			
 			this.facing = Facing;
