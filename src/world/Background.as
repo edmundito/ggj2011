@@ -10,6 +10,8 @@ package world
 		public function Background() 
 		{
 			super();
+			
+			this.fixed = true;
 		}
 		
 		public function next():Boolean

@@ -86,7 +86,7 @@ package world
 			for each (var figure:FigureSprite in _figureGroup.members)
 			{
 				// Player is colliding with figure that has not been built!
-				if (_player.overlaps(figure) && !figure.isDone)
+				if (_player.overlapsPoint(figure.x, figure.y) && !figure.isDone)
 				{
 					if (_overlappingFigure != figure)
 					{
@@ -107,11 +107,11 @@ package world
 					// Show key hint...
 					_keyText.visible = true;
 					_keyText.x = figure.x + 10;
-					_keyText.y = figure.y - figure.height + 7;
+					_keyText.y = figure.y - figure.height - 3;
 					
 					_keySprite.visible = true;
 					_keySprite.x = figure.x;
-					_keySprite.y = figure.y - figure.height;
+					_keySprite.y = figure.y - figure.height - 10;
 					
 					isNearFigure = true;
 					
@@ -143,7 +143,7 @@ package world
 							
 							_keyText.visible = false;
 							_keySprite.visible = false;
-							addEmitter(figure.x , figure.y-20);
+							addEmitter(figure.x , figure.y - 20);
 							FlxG.play(Assets.BuiltSound);
 							_overlappingFigure = null;
 							figure._currentAnim = "idle";

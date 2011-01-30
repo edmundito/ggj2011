@@ -201,17 +201,27 @@ package sprites
 			
 		}
 		
+		private var _ready:Boolean = false;
+		
 		private function updateTwoKeys():void
 		{
 			if (_state != STATE_BUILD)
 			{
+				if ((FlxG.keys.justReleased(_moveKeyA) && !_alt) ||
+					(FlxG.keys.justReleased(_moveKeyB) && _alt))
+				{
+					_ready = true;
+				}
+				
 				if (FlxG.keys.justPressed(_moveKeyA) && _alt)
 				{
 					moveForward();
+					_ready = false;
 				}
 				else if (FlxG.keys.justPressed(_moveKeyB) && !_alt)
 				{
 					moveForward();
+					_ready = false;
 				}
 			}
 			
