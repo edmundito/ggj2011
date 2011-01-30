@@ -5,7 +5,8 @@ package sprites
 	
 	public class FigureSprite extends FlxSprite
 	{
-		public const NUM_FRAMES:uint = 4;
+		static public const NUM_FRAMES:uint = 4;
+		static public const ANIM_FPS:uint = 5;
 		
 		private var _buildSteps:uint;
 		private var _currentStep:uint = 0;
@@ -50,19 +51,19 @@ package sprites
 			if (_graphic == Assets.Figure1BlueGraphic || _graphic == Assets.Figure1RedGraphic)
 			{
 				_idleFrames = 2;
-				addAnimation("idle", [4,5], 4, true);
+				addAnimation("idle", [4,5], ANIM_FPS, true);
 			}
 			else if (_graphic == Assets.Figure2BlueGraphic || _graphic == Assets.Figure2RedGraphic ||
 					_graphic == Assets.Figure4BlueGraphic || _graphic == Assets.Figure4RedGraphic )
 			{
 				_idleFrames = 4;
-				addAnimation("idle", [4,5,6,7], 4, true);
+				addAnimation("idle", [4,5,6,7], ANIM_FPS, true);
 			}
 			else if (_graphic == Assets.Figure3BlueGraphic || _graphic == Assets.Figure3RedGraphic ||
 					_graphic == Assets.Figure5BlueGraphic || _graphic == Assets.Figure5RedGraphic )
 			{
 				_idleFrames = 3;
-				addAnimation("idle", [4,5,6], 4, true);
+				addAnimation("idle", [4,5,6], ANIM_FPS, true);
 			}
 		}
 		

@@ -4,14 +4,18 @@ package world
 	
 	public class Background extends FlxSprite 
 	{
+		static private const MAX_FRAMES:uint = 6;
+		static private const WINTER_FRAMES:uint = 2;
+		static private const SPRING_FRAMES:uint = 3;
+		
 		private var _current:int = 0;
-		private var MAX_FRAMES:uint = 6;
+		private var _phase:uint = 0;
 		
 		public function Background(Graphic:Class, height:uint = 120) 
 		{
 			super();
 			
-			loadGraphic(Graphic, true, false, 320, height, true);
+			loadGraphic(Graphic, true, true, 320, height, true);
 			
 			this.width = 320;
 			this.height = height;
@@ -29,15 +33,39 @@ package world
 			this.fixed = true;
 		}
 		
+		public function nextSeason():void
+		{
+			_phase++;
+		}
+		
 		public function next():Boolean
 		{
 			play(_current.toString())
 			
+			if (_phase == 1)
+			{
+				this.facing = RIGHT;
+			}
+			else
+			{
+				var choice:uint = Utils.randInt(0, 1);
+				this.facing = choice? LEFT : RIGHT;
+			}
+			
+			// Increment counter
 			_current++;
 			
-			if (_current >= MAX_FRAMES)
+			if (_phase == 0 && _current >= WINTER_FRAMES)
 			{
 				_current = 0;
+			}
+			else if (_phase == 1)
+			{
+				_phase++;
+			}
+			else if (_phase == 2 && _current >= MAX_FRAMES)
+			{
+				_current = WINTER_FRAMES + 1;
 			}
 			
 			return true;

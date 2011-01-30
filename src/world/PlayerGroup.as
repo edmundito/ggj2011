@@ -93,16 +93,18 @@ package world
 					{
 						_buildKey = Globals.randomKeyMgr.getFreeKey();
 						_keyText.text = _buildKey;
+						
+						// Show key hint...
+						_keyText.visible = true;
+						_keyText.x = figure.x + 10;
+						_keyText.y = figure.y - figure.height - 3;
+						
+						_keySprite.visible = true;
+						_keySprite.x = figure.x;
+						_keySprite.y = figure.y - figure.height - 10;
 					}
 					
-					// Show key hint...
-					_keyText.visible = true;
-					_keyText.x = figure.x + 10;
-					_keyText.y = figure.y - figure.height - 3;
 					
-					_keySprite.visible = true;
-					_keySprite.x = figure.x;
-					_keySprite.y = figure.y - figure.height - 10;
 					
 					isNearFigure = true;
 					
@@ -149,6 +151,7 @@ package world
 			if (!isNearFigure && _overlappingFigure)
 			{
 				_keyText.visible = false;
+				_keySprite.visible = false;
 				Globals.randomKeyMgr.releaseKey(_buildKey);
 				_buildKey = "";
 				_overlappingFigure = null;
