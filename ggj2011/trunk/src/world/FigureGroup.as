@@ -9,7 +9,7 @@ package world
 	{
 		static public const FIGUREOFFSET:int = 82;
 		
-		private var current:int = 0;
+		private var _current:uint = 0;
 		
 		public function FigureGroup() 
 		{
@@ -24,24 +24,23 @@ package world
 			// Clean out current figures
 			this.destroyMembers();
 			
-			if (current == 0)
+			if (_current == 1)
 			{
-				this.add(new FigureSprite(FlxG.width * 0.5, this.y + FIGUREOFFSET, Assets.BluePlayerGraphic, 16));
+				add(new FigureSprite(FlxG.width * 0.5, this.y + FIGUREOFFSET, Assets.BluePlayerGraphic, 16));
 			}
-			else if (current == 1)
+			else if (_current == 2)
 			{
-				this.add(new FigureSprite(FlxG.width / 3, this.y + FIGUREOFFSET, Assets.BluePlayerGraphic, 16));
-				this.add(new FigureSprite(FlxG.width / 3 * 2, this.y + FIGUREOFFSET, Assets.BluePlayerGraphic, 16));
+				add(new FigureSprite(FlxG.width / 3, this.y + FIGUREOFFSET, Assets.BluePlayerGraphic, 16));
+				add(new FigureSprite(FlxG.width / 3 * 2, this.y + FIGUREOFFSET, Assets.BluePlayerGraphic, 16));
 			}
-			else
-			{
-				
-				this.add(new FigureSprite(FlxG.width / 4, this.y + FIGUREOFFSET, Assets.BluePlayerGraphic, 16));
-				this.add(new FigureSprite(FlxG.width / 4 * 2, this.y + FIGUREOFFSET, Assets.BluePlayerGraphic, 16));
-				this.add(new FigureSprite(FlxG.width / 4 * 3, this.y + FIGUREOFFSET, Assets.BluePlayerGraphic, 16));
+			else if (_current == 3)
+			{	
+				add(new FigureSprite(FlxG.width / 4, this.y + FIGUREOFFSET, Assets.BluePlayerGraphic, 16));
+				add(new FigureSprite(FlxG.width / 4 * 2, this.y + FIGUREOFFSET, Assets.BluePlayerGraphic, 16));
+				add(new FigureSprite(FlxG.width / 4 * 3, this.y + FIGUREOFFSET, Assets.BluePlayerGraphic, 16));
 			}
 			
-			current++;
+			_current++;
 			
 		}
 	}

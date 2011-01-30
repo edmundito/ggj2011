@@ -21,6 +21,7 @@ package sprites
 		private var _alt:Boolean = false;
 		private var _currentAnimName:uint = 0;
 		private var _currentAnimFrame:uint = 0;
+		static private const MAX_BIRTH_ANIM_FRAMES:uint = 4;
 		static private const MAX_WALK_ANIM_FRAMES:uint = 2;
 		static private const MAX_BUILD_ANIM_FRAMES:uint = 2;
 		
@@ -71,6 +72,11 @@ package sprites
 			addAnimation("build0", [10], WALK_FPS, true);
 			addAnimation("build1", [11], WALK_FPS, true);
 			
+			addAnimation("birth0", [0]);
+			addAnimation("birth1", [1]);
+			addAnimation("birth2", [2]);
+			addAnimation("birth3", [3]);
+			
 			
 			this.facing = Facing;
 			if (this.facing == RIGHT)
@@ -88,7 +94,7 @@ package sprites
 			this.drag.x = MOVE_SPEED * 8;
 			this.drag.y = MOVE_SPEED * 8;
 			
-			this.state = PlayerSprite.STATE_RUN;
+			this.state = PlayerSprite.STATE_BIRTH;
 		}
 		
 		override public function update():void
@@ -166,20 +172,31 @@ package sprites
 		
 		private function moveForward():void
 		{
-			this.x += _moveDirection * 10;
+			if (_state == STATE_RUN)
+			{
+				this.x += _moveDirection * 10;
+			}
+			
 			_alt = !_alt;
 			_currentAnimFrame++;
 			
-			if (_currentAnimFrame >= MAX_WALK_ANIM_FRAMES)
+			if ((_state == STATE_RUN && _currentAnimFrame >= MAX_WALK_ANIM_FRAMES) ||
+				(_state == STATE_BIRTH && _currentAnimFrame >= MAX_BIRTH_ANIM_FRAMES))
 			{
 				_currentAnimFrame = 0;
+				
+				// Finished birth state? run lola run!
+				if (_state == STATE_BIRTH)
+				{
+					this.state = STATE_RUN;
+				}
 			}
 			
 		}
 		
 		private function updateTwoKeys():void
 		{
-			if (_state == STATE_RUN)
+			if (_state != STATE_BUILD)
 			{
 				if (FlxG.keys.justPressed(_moveKeyA) && _alt)
 				{
@@ -194,6 +211,10 @@ package sprites
 			if (_state == STATE_BUILD)
 			{
 				play("build" + _currentAnimFrame);
+			}
+			else if (_state == STATE_BIRTH)
+			{
+				play("birth" + _currentAnimFrame);
 			}
 			else
 			{

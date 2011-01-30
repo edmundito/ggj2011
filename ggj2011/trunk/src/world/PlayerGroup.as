@@ -19,6 +19,12 @@ package world
 		private var _emitterGroup:FlxGroup;
 		private var _keyText:FlxText;
 		private var _buildKey:String = "";
+		private var _buildCount:uint = 0;
+		
+		public function get buildCount():uint
+		{
+			return _buildCount;
+		}
 		
 		public function PlayerGroup(player:PlayerSprite) 
 		{
@@ -99,12 +105,15 @@ package world
 						// Figure finally complete...
 						if (figure.isDone)
 						{
-							addEmitter(figure.x , figure.y-20);
-							_keyText.visible = false;
+							_buildCount++;
+							
 							isNearFigure = false;
 							_player.state = PlayerSprite.STATE_RUN;
 							Globals.randomKeyMgr.releaseKey(_buildKey);
 							_buildKey = "";
+							
+							_keyText.visible = false;
+							addEmitter(figure.x , figure.y-20);
 						}
 					}
 					

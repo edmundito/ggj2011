@@ -30,10 +30,10 @@ package sprites
 			
 			_buildSteps = buildSteps;
 			
-			addAnimation("build0", [0]);
-			addAnimation("build1", [1]);
-			addAnimation("build2", [2]);
-			addAnimation("build3", [3]);
+			addAnimation("birth0", [0]);
+			addAnimation("birth1", [1]);
+			addAnimation("birth2", [2]);
+			addAnimation("birth3", [3]);
 			
 		}
 		
@@ -43,7 +43,7 @@ package sprites
 			{
 				_currentStep++;
 				_didStep = true;
-				_currentAnim = "build" + (Math.floor((_currentStep / _buildSteps) * (NUM_FRAMES - 1)) as int);
+				_currentAnim = "birth" + (Math.floor((_currentStep / _buildSteps) * (NUM_FRAMES - 1)) as int);
 			}
 		}
 		
