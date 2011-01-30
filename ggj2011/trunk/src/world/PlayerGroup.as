@@ -38,23 +38,6 @@ package world
 			_background.loadGraphic(Assets.Test1Img);
 			add(_background);
 			
-			// Ground
-			_ground = new FlxGroup();
-			add(_ground);
-			
-			var sprite:FlxSprite;
-			
-			for (var i:int = 0; i < 8; i++)
-			{
-				sprite = new FlxSprite();
-				sprite.loadGraphic(Assets.GroundImg);
-				sprite.offset.x = sprite.width * 0.5;
-				sprite.offset.y = sprite.height * 0.5;
-				sprite.x = sprite.width * i;
-				sprite.y = 90;
-				_ground.add(sprite);
-			}
-			
 			_emitterGroup = new FlxGroup();
 			add(_emitterGroup);
 			
@@ -74,6 +57,24 @@ package world
 			
 			_player = player;
 			add(_player);
+			
+			// Ground
+			_ground = new FlxGroup();
+			add(_ground);
+			
+			var sprite:FlxSprite;
+			
+			for (var i:int = 0; i < 8; i++)
+			{
+				sprite = new FlxSprite();
+				sprite.loadGraphic(Assets.BgFrontGraphic);
+				sprite.offset.x = 0;
+				sprite.offset.y = sprite.height;
+				sprite.x = sprite.width * i;
+				sprite.y = FlxG.height * 0.5;
+				sprite.fixed = true;
+				_ground.add(sprite);
+			}
 		}
 		
 		override public function update():void

@@ -20,8 +20,8 @@ package states
 		
 		override public function create():void
 		{
-			_player1 = new PlayerSprite("blue", "A", "S", FlxSprite.RIGHT, 20, 90);
-			_player2 = new PlayerSprite("red", "K", "L", FlxSprite.RIGHT, 20, 90);
+			_player1 = new PlayerSprite("blue", "A", "S", FlxSprite.RIGHT, FlxG.width * 0.25, 110);
+			_player2 = new PlayerSprite("red", "K", "L", FlxSprite.RIGHT, FlxG.width * 0.25, 110);
 			
 			_player1Strip = new PlayerGroup(_player1);
 			_player1Strip.y = 0;

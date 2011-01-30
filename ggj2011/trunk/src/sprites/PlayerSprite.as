@@ -63,9 +63,9 @@ package sprites
 			
 			var GraphicClass:Class = (ColorKey == "red")? Assets.RedPlayerGraphic : Assets.BluePlayerGraphic;
 			
-			loadGraphic(GraphicClass, true, true, 64, 64);
-			this.width = 64;
-			this.height = 64;
+			loadGraphic(GraphicClass, true, true, 80, 80);
+			this.width = 80;
+			this.height = 80;
 			
 			this.offset.x = this.width * 0.5;
 			this.offset.y = this.height;

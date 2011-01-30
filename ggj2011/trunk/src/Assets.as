@@ -11,8 +11,11 @@ package
 		[Embed(source="../assets/sprites/redPlayer.png")]
 		static public var RedPlayerGraphic:Class;
 		
-		[Embed(source="../assets/sprites/ground.png")]
-		static public var GroundImg:Class;
+		[Embed(source="../assets/sprites/bg_front.png")]
+		static public var BgFrontGraphic:Class;
+		
+		//[Embed(source="../assets/sprites/ground.png")]
+		//static public var GroundImg:Class;
 		
 		[Embed(source="../assets/sprites/keypress.png")]
 		static public var KeyGraphic:Class;
