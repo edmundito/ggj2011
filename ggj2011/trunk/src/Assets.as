@@ -17,6 +17,36 @@ package
 		[Embed(source="../assets/sprites/keypress.png")]
 		static public var KeyGraphic:Class;
 		
+		[Embed(source="../assets/sprites/figure1_red.png")]
+		static public var Figure1RedGraphic:Class;
+		
+		[Embed(source="../assets/sprites/figure1_blue.png")]
+		static public var Figure1BlueGraphic:Class;
+		
+		[Embed(source="../assets/sprites/figure2_red.png")]
+		static public var Figure2RedGraphic:Class;
+		
+		[Embed(source="../assets/sprites/figure2_blue.png")]
+		static public var Figure2BlueGraphic:Class;
+		
+		[Embed(source="../assets/sprites/figure3_red.png")]
+		static public var Figure3RedGraphic:Class;
+		
+		[Embed(source="../assets/sprites/figure3_blue.png")]
+		static public var Figure3BlueGraphic:Class;
+		
+		[Embed(source="../assets/sprites/figure4_red.png")]
+		static public var Figure4RedGraphic:Class;
+		
+		[Embed(source="../assets/sprites/figure4_blue.png")]
+		static public var Figure4BlueGraphic:Class;
+		
+		[Embed(source="../assets/sprites/figure5_red.png")]
+		static public var Figure5RedGraphic:Class;
+		
+		[Embed(source="../assets/sprites/figure5_blue.png")]
+		static public var Figure5BlueGraphic:Class;
+		
 		[Embed(source="../assets/sprites/testBG1.png")]
 		static public var Test1Img:Class;
 		

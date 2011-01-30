@@ -26,18 +26,18 @@ package world
 			
 			if (_current == 1)
 			{
-				add(new FigureSprite(FlxG.width * 0.5, this.y + FIGUREOFFSET, Assets.BluePlayerGraphic, 16));
+				add(new FigureSprite(FlxG.width * 0.5, this.y + FIGUREOFFSET, Assets.Figure2BlueGraphic, 16));
 			}
 			else if (_current == 2)
 			{
-				add(new FigureSprite(FlxG.width / 3, this.y + FIGUREOFFSET, Assets.BluePlayerGraphic, 16));
-				add(new FigureSprite(FlxG.width / 3 * 2, this.y + FIGUREOFFSET, Assets.BluePlayerGraphic, 16));
+				add(new FigureSprite(FlxG.width / 3, this.y + FIGUREOFFSET, Assets.Figure4BlueGraphic, 16));
+				add(new FigureSprite(FlxG.width / 3 * 2, this.y + FIGUREOFFSET, Assets.Figure3BlueGraphic, 16));
 			}
 			else if (_current == 3)
 			{	
-				add(new FigureSprite(FlxG.width / 4, this.y + FIGUREOFFSET, Assets.BluePlayerGraphic, 16));
-				add(new FigureSprite(FlxG.width / 4 * 2, this.y + FIGUREOFFSET, Assets.BluePlayerGraphic, 16));
-				add(new FigureSprite(FlxG.width / 4 * 3, this.y + FIGUREOFFSET, Assets.BluePlayerGraphic, 16));
+				add(new FigureSprite(FlxG.width / 4, this.y + FIGUREOFFSET, Assets.Figure5BlueGraphic, 16));
+				add(new FigureSprite(FlxG.width / 4 * 2, this.y + FIGUREOFFSET, Assets.Figure1BlueGraphic, 16));
+				add(new FigureSprite(FlxG.width / 4 * 3, this.y + FIGUREOFFSET, Assets.Figure4BlueGraphic, 16));
 				
 				_current = 1;
 			}
