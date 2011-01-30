@@ -28,6 +28,9 @@ package world
 			}
 			else if (current == 2)
 			{
+				this.loadGraphic(Assets.Test1Img);
+				current = 0;
+				return true;
 			}
 			
 			return false;
