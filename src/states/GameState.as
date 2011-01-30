@@ -20,8 +20,19 @@ package states
 		
 		override public function create():void
 		{
-			_player1 = new PlayerSprite("blue", "A", "S", FlxSprite.RIGHT, FlxG.width * 0.25, 120);
-			_player2 = new PlayerSprite("red", "K", "L", FlxSprite.RIGHT, FlxG.width * 0.25, 120);
+			Globals.randomKeyMgr.addKeyToIgnoreList("Q");
+			Globals.randomKeyMgr.addKeyToIgnoreList("A");
+			Globals.randomKeyMgr.addKeyToIgnoreList("Z");
+			Globals.randomKeyMgr.addKeyToIgnoreList("W");
+			Globals.randomKeyMgr.addKeyToIgnoreList("S");
+			Globals.randomKeyMgr.addKeyToIgnoreList("X");
+			Globals.randomKeyMgr.addKeyToIgnoreList("P");
+			Globals.randomKeyMgr.addKeyToIgnoreList("L");
+			
+			_player1 = new PlayerSprite("blue", "F", "G", FlxSprite.RIGHT, FlxG.width * 0.25, 120);
+			_player2 = new PlayerSprite("red", "H", "J", FlxSprite.RIGHT, FlxG.width * 0.25, 120);
+			
+			
 			
 			_player1Strip = new PlayerGroup(_player1);
 			_player1Strip.y = 0;

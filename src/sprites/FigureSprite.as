@@ -60,7 +60,10 @@ package sprites
 				addAnimation("idle", [4,5,6,7], ANIM_FPS, true);
 			}
 			else if (_graphic == Assets.Figure3BlueGraphic || _graphic == Assets.Figure3RedGraphic ||
-					_graphic == Assets.Figure5BlueGraphic || _graphic == Assets.Figure5RedGraphic )
+					_graphic == Assets.Figure5BlueGraphic || _graphic == Assets.Figure5RedGraphic ||
+					_graphic == Assets.Figure6BlueGraphic || _graphic == Assets.Figure6RedGraphic ||
+					_graphic == Assets.Figure7BlueGraphic || _graphic == Assets.Figure7RedGraphic ||
+					_graphic == Assets.Figure8BlueGraphic || _graphic == Assets.Figure8RedGraphic)
 			{
 				_idleFrames = 3;
 				addAnimation("idle", [4,5,6], ANIM_FPS, true);
