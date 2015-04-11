@@ -1,5 +1,7 @@
 package world 
-{	
+{
+	import flash.text.TextFormatAlign;
+
 	import org.flixel.*;
 	
 	import sprites.FigureSprite;
@@ -23,12 +25,11 @@ package world
 		private var _sun:FlxSprite;
 		private var _sunDone:Boolean = false;
 		private var _playerMeltCooldown:Number = 2.0;
-		private var _totalScoreText:FlxText;
 		private var _totalScore:uint = 0;
-		public var _complete:Boolean = false;
-		
+		private var _complete:Boolean = false;
 		private var _figureKeyBubble:KeyBubble;
 		private var _playerKeyBubble:KeyBubble;
+		private var _playerWasBorn:Boolean;
 		
 		public function PlayerGroup(player:PlayerSprite) 
 		{
@@ -39,10 +40,6 @@ package world
 			add(_background);
 			_background.next();
 			
-			
-			_emitterGroup = new FlxGroup();
-			add(_emitterGroup);
-			
 			_figureGroup = new FigureGroup(player.colorKey);
 			add(_figureGroup);
 			_figureKeyBubble = new KeyBubble(player.colorKey, this, 31, 32);
@@ -52,6 +49,9 @@ package world
 			add(_player);
 			
 			_playerKeyBubble = new KeyBubble(player.colorKey + "2", this, 55, 32, true);
+
+			_emitterGroup = new FlxGroup();
+			add(_emitterGroup);
 			
 			// Sun in the Front
 			_sun = new FlxSprite(330, 0);
@@ -78,41 +78,48 @@ package world
 			// Scoring update
 			if (_scoring)
 			{
-				if (!_sunDone)
+				if (_sun.x > 160)
 				{
-					_sun.x -= 20 * FlxG.elapsed;
+					_sun.x -= 15.0 * FlxG.elapsed;
 					if (_sun.x <= 240)
 					{
-						_sun.x = 240;
 						_sunDone = true;
 					}
 				}
-				else
+
+				if (_sunDone)
 				{
-					if (!_figureGroup._isDoneMelting)
+					if (!_figureGroup.isDoneMelting)
 					{
 						var time:Number = _buildTimes.pop();
 						var score:uint = (10.0 - time) * 100;
-						FlxG.log(score.toString());
+						//FlxG.log(score.toString());
 						if (score <= 0) score = 100;
 						_figureGroup.melt(score);
 						_totalScore += score;
 					}
-					else
+					else if (!_complete)
 					{
-						if (_playerMeltCooldown == 2.0)
+						if (_playerMeltCooldown < 0.0)
 						{
-							// Melt the player
-							_player.play("melt");
-							
-							_totalScoreText = new FlxText(50, this.y + 40, 200);
-							_totalScoreText.text = "Total Score: " + _totalScore.toString();
-							//_totalScoreText.color = 0xffffffff;
-							add(_totalScoreText);
-							_totalScoreText.setFormat("system", 10, 0xff000000, "center");
+							if (_playerWasBorn)
+							{
+								// Melt the player
+								_player.play("melt");
+								FlxG.play(Assets.PointDeathSound, 0.5);
+							}
+
+							var text:String = "TOTAL SCORE: " + _totalScore.toString();
+							var totalScoreText:FlxText = new FlxText(0, this.y + 15, Globals.getGameWidth());
+							totalScoreText.text = text;
+							add(totalScoreText);
+							totalScoreText.setFormat(null, 8, 0xff000000, TextFormatAlign.CENTER);
+
+							totalScoreText = new FlxText(-1, this.y + 14, Globals.getGameWidth());
+							totalScoreText.text = text;
+							add(totalScoreText);
+							totalScoreText.setFormat(null, 8, 0xffffffff, TextFormatAlign.CENTER);
 							_complete = true;
-							
-							FlxG.play(Assets.PointDeathSound, 0.5);
 						}
 						
 						_playerMeltCooldown -= FlxG.elapsed;
@@ -125,9 +132,9 @@ package world
 			
 			if (_player.state == PlayerSprite.STATE_BIRTH && !_playerKeyBubble.isVisible)
 			{
-				_playerKeyBubble.show(_player.x + _player.width * 0.25, _player.y - _player.height * 0.75, _player.moveKeyA, _player.moveKeyB);
+				showPlayerKeyBubble();
 			}
-			else if (_player.state != PlayerSprite.STATE_BIRTH && _playerKeyBubble.isVisible)
+			else if (_player.moved())
 			{
 				_playerKeyBubble.hide();
 			}
@@ -185,7 +192,8 @@ package world
 							_buildKey = "";
 							
 							_figureKeyBubble.hide();
-							addEmitter(figure.x , figure.y - 20);
+							_playerKeyBubble.show(figure.x, figure.y - figure.height, _player.moveKeyA, _player.moveKeyB);
+							addEmitter(figure.x , figure.y - (figure.height * 0.4));
 							FlxG.play(PlayerSprite.BUILT_SOUNDS[_player.colorKey]);
 							_overlappingFigure = null;
 							figure._currentAnim = "idle";
@@ -215,12 +223,8 @@ package world
 					_backgroundFront.next();
 					_player.x = TRANSITION_BUFFER;
 					_figureGroup.next();
-					
-					for each (var emitter:FlxEmitter in _emitterGroup.members)
-					{
-						emitter.kill();
-					}
-					_emitterGroup.members.splice(0, _emitterGroup.members.length);
+
+					killEmitters();
 				}
 				else
 				{
@@ -241,7 +245,7 @@ package world
 			for(var i:int = 0; i < 40; i++)
 			{
 				var particle:FlxSprite = new FlxSprite();
-				particle.createGraphic(2, 2, 0xffE5FB05);
+				particle.createGraphic(2, 2, 0xFFFFFFFF); // 0xffE5FB05);
 				emitter.add(particle);
 			}
 			
@@ -249,20 +253,57 @@ package world
 			_emitterGroup.add(emitter);
 		}
 
+		private function killEmitters():void
+		{
+			for each (var emitter:FlxEmitter in _emitterGroup.members)
+			{
+				emitter.kill();
+			}
+			_emitterGroup.members.splice(0, _emitterGroup.members.length);
+		}
+
 		public function goToScore():void
 		{
 			_scoring = true;
+			if(_player.hasStartedBirth) {
+				_playerWasBorn = true;
+			}
+			if(_player.state != PlayerSprite.STATE_BIRTH) {
+				_player.play("walk0");
+				_player.x = FlxG.width / 2;
+			}
 			_player.state = PlayerSprite.STATE_SCORING;
-			_player.play("idle");
 			_figureGroup.score(_completedFigures);
-			_player.x = FlxG.width / 2;
 			_figureKeyBubble.hide();
+			_playerKeyBubble.hide();
+			killEmitters();
+			_background.forceEndOfSeason();
+			if (_background.next())
+			{
+				_backgroundFront.forceEndOfSeason();
+				_backgroundFront.next();
+			}
 		}
 		
 		public function nextSeason():void
 		{
 			_background.nextSeason();
 			_backgroundFront.nextSeason();
+		}
+
+		private function showPlayerKeyBubble():void
+		{
+			_playerKeyBubble.show(
+				_player.x + _player.width * 0.25,
+				_player.y - _player.height * (_player.state == PlayerSprite.STATE_BIRTH? 0.75 : 1.0),
+				_player.moveKeyA,
+				_player.moveKeyB
+			);
+		}
+
+		public function get complete():Boolean
+		{
+			return _complete;
 		}
 	}
 

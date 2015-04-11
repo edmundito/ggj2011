@@ -1,7 +1,6 @@
 package sprites
 {
 	import org.flixel.FlxSprite;
-	import org.flixel.FlxText;
 	
 	public class FigureSprite extends FlxSprite
 	{
@@ -13,8 +12,6 @@ package sprites
 		public var _currentAnim:String;
 		private var _didStep:Boolean = false;
 		private var _didStepDelta:int = 1;
-		public var _scoreText:FlxText;
-		private var _TextYPos:uint = 10;
 		
 		private var _birthFrames:uint;
 		private var _idleFrames:uint;
@@ -50,11 +47,6 @@ package sprites
 			this.offset.y = this.height;
 			
 			_buildSteps = buildSteps;
-			
-			// Score Text
-			_scoreText = new FlxText(this.x, this.y + _TextYPos, 30);
-			_scoreText.visible = true;
-			_scoreText.color = 0xff000000;
 			
 			// Frames
 			_birthFrames = 4;

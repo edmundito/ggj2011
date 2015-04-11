@@ -130,14 +130,10 @@ package sprites
 		
 		override public function update():void
 		{
-			if (this.state == PlayerSprite.STATE_SCORING)
+			if (this.state != PlayerSprite.STATE_SCORING)
 			{
-				super.update();
-				return;
+				updateTwoKeys();
 			}
-			
-			// Update Movement
-			updateTwoKeys();
 			
 			super.update();
 		}
@@ -267,6 +263,11 @@ package sprites
 				play("walk" + _currentAnimFrame);
 			}
 		}
+
+		public function moved():Boolean
+		{
+			return _state == STATE_RUN && (FlxG.keys.justPressed(_moveKeyA) || FlxG.keys.justPressed(_moveKeyB));
+		}
 		
 		public function building():void
 		{
@@ -276,6 +277,11 @@ package sprites
 			{
 				_currentAnimFrame = 0;
 			}
+		}
+
+		public function get hasStartedBirth():Boolean
+		{
+			return this.state != STATE_BIRTH || _currentAnimFrame > 0;
 		}
 	}
 }

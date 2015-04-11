@@ -106,7 +106,7 @@ package
 		[Embed(source="../assets/audio/HereComesSunSlow.mp3")]
 		static public var BgmSlowSound:Class;
 		
-		[Embed(source="../assets/audio/herecomes8bit.mp3")]
+		[Embed(source="../assets/audio/HereComesSunShort.mp3")]
 		static public var BgmSound:Class;
 		
 		[Embed(source="../assets/audio/Built.mp3")]

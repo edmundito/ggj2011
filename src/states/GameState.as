@@ -13,7 +13,7 @@ package states
 		
 		private var _bgm:FlxSound;
 		private var _endTriggered:Boolean = false;
-		private var _seasonTimer:Number = 85.0;
+		private var _seasonTimer:Number = 20.0; //85.0; // 85.0 = Original music length before starting to change seasons.
 		
 		private var _fadeoutCalled:Boolean = false;
 		
@@ -27,6 +27,8 @@ package states
 			Globals.randomKeyMgr.addKeyToIgnoreList("X");
 			Globals.randomKeyMgr.addKeyToIgnoreList("P");
 			Globals.randomKeyMgr.addKeyToIgnoreList("L");
+			Globals.randomKeyMgr.addKeyToIgnoreList("U");
+			Globals.randomKeyMgr.addKeyToIgnoreList("V");
 
 			var player1:PlayerSprite = new PlayerSprite("blue", "F", "G", FlxSprite.RIGHT, FlxG.width * 0.25, 120);
 			var player2:PlayerSprite = new PlayerSprite("red", "H", "J", FlxSprite.RIGHT, FlxG.width * 0.25, 120);
@@ -44,10 +46,10 @@ package states
 		
 		override public function update():void
 		{
-			if (_player1Strip._complete && _player2Strip._complete && !_fadeoutCalled)
+			if (_player1Strip.complete && _player2Strip.complete && !_fadeoutCalled)
 			{
 				_fadeoutCalled = true;
-				FlxG.fade.start(0xff000000, 20.0, onFade1Done);
+				FlxG.fade.start(0xff000000, 10.0, onFade1Done);
 			}
 			
 			if (!_bgm.playing && !_endTriggered)
@@ -56,15 +58,17 @@ package states
 				FlxG.log("Music Ends!");
 				onFadeDone();
 			}
-			
-			if (_seasonTimer <= 0 )
-			{
-				_player1Strip.nextSeason();
-				_player2Strip.nextSeason();
-			}
 			else
 			{
-				_seasonTimer -= FlxG.elapsed;
+				if (_seasonTimer <= 0 )
+				{
+					_player1Strip.nextSeason();
+					_player2Strip.nextSeason();
+				}
+				else
+				{
+					_seasonTimer -= FlxG.elapsed;
+				}
 			}
 			
 			super.update();
@@ -87,7 +91,7 @@ package states
 		private function onFade1Done():void
 		{
 			FlxG.log("Fade1 done!");
-			FlxG.state = new LogoState();
+			FlxG.state = new MainMenuState();
 		}
 	}
 }

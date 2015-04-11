@@ -1,11 +1,12 @@
 package 
 {
+	import flash.display.StageAlign;
 	import flash.display.StageDisplayState;
 	import flash.display.StageScaleMode;
 	import flash.events.Event;
 	import flash.events.KeyboardEvent;
 	import flash.geom.Rectangle;
-	
+
 	import org.flixel.*;
 	
 	import states.*;
@@ -23,7 +24,7 @@ package
 			Globals;
 			
 			addEventListener(Event.ADDED_TO_STAGE, onAddedToStage);
-			super(320, 240, LogoState, ZOOM);
+			super(Globals.getGameWidth(), Globals.getGameHeight(), MainMenuState, ZOOM);
 			
 			this.useDefaultHotKeys = false;
 		}
@@ -33,11 +34,12 @@ package
 			removeEventListener(Event.ADDED_TO_STAGE, onAddedToStage);
 			
 			stage.scaleMode = StageScaleMode.NO_SCALE;
-			stage.fullScreenSourceRect = new Rectangle(0, 0, FlxG.width * ZOOM, FlxG.height * ZOOM); 
+			stage.align = StageAlign.TOP_LEFT;
+			stage.fullScreenSourceRect = new Rectangle(0, 0, FlxG.width * ZOOM, FlxG.height * ZOOM);
 			
 			stage.addEventListener(KeyboardEvent.KEY_DOWN, onKeyDown);
 		}
-		
+
 		private function onKeyDown(keyboardEvent:KeyboardEvent):void
 		{
 			stage.removeEventListener(KeyboardEvent.KEY_DOWN, onKeyDown);
@@ -58,7 +60,7 @@ package
 		
 		private function toggleFullScreen():void
 		{
-			stage.displayState = stage.displayState == StageDisplayState.NORMAL? StageDisplayState.FULL_SCREEN : StageDisplayState.NORMAL;	
+			stage.displayState = stage.displayState == StageDisplayState.NORMAL? StageDisplayState.FULL_SCREEN_INTERACTIVE : StageDisplayState.NORMAL;
 		}
 	}
 }

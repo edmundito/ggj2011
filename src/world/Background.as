@@ -4,8 +4,8 @@ package world
 	
 	public class Background extends FlxSprite 
 	{
-		static private const MAX_FRAMES:uint = 6;
-		static private const WINTER_FRAMES:uint = 2;
+		static public const MAX_FRAMES:uint = 6;
+		static public const WINTER_FRAMES:uint = 2;
 		
 		private var _current:int = 0;
 		private var _phase:uint = 0;
@@ -14,9 +14,9 @@ package world
 		{
 			super();
 			
-			loadGraphic(Graphic, true, true, 320, height, true);
+			loadGraphic(Graphic, true, true, Globals.getGameWidth(), height, true);
 			
-			this.width = 320;
+			this.width = Globals.getGameWidth();
 			this.height = height;
 			this.offset.x = 0;
 			this.offset.y = 0;
@@ -38,6 +38,12 @@ package world
 			{
 				_phase++;
 			}
+		}
+
+		public function forceEndOfSeason():void
+		{
+			_phase = 2;
+			_current = MAX_FRAMES - 1;
 		}
 		
 		public function next():Boolean

@@ -4,10 +4,10 @@ package states
 	
 	public class MainMenuState extends FlxState 
 	{
-		
+
 		override public function create():void 
 		{
-			var logo:FlxSprite = new FlxSprite(5, 0, Assets.TitleGraphic);
+			var logo:FlxSprite = new FlxSprite(0, 0, Assets.TitleGraphic);
 			add(logo);
 			
 			super.create();

@@ -45,7 +45,6 @@ package world
 		private var _figuresToMelt:Array = [];
 		private var _scoresText:Array = [];
 		private var _meltTimer:Number = 0;
-		public var _isDoneMelting:Boolean = false;
 		private var _buildSteps:uint = 8;
 		private var _figureIndex:uint = 3;
 		
@@ -130,18 +129,17 @@ package world
 				
 				if (index % 2)
 				{
-					x = half + FlxG.width / figures.length * index / 2;
+					x = half + (FlxG.width * 0.9) / figures.length * index / 2;
 				}
 				else
 				{
-					x = half - FlxG.width / figures.length * index / 2;
+					x = half - (FlxG.width * 0.9) / figures.length * index / 2;
 				}
 				
 				sprite = new FigureSprite(x, this.y + FIGURE_OFFSET, figureGraphic, 16);
 				sprite._currentStep = 100;
 				sprite._currentAnim = "idle";
 				add(sprite);
-				//add(sprite._scoreText);
 				
 				_figuresToMelt.push(sprite);
 				
@@ -149,7 +147,7 @@ package world
 			}
 		}
 		
-		public function melt(score:uint):uint
+		public function melt(score:uint):void
 		{
 			_meltTimer -= FlxG.elapsed;
 			
@@ -157,8 +155,7 @@ package world
 			{
 				if (_figuresToMelt.length == 0)
 				{
-					_isDoneMelting = true;
-					return 0;
+					return;
 				}
 				
 				var figure:FigureSprite = _figuresToMelt.pop();
@@ -166,17 +163,20 @@ package world
 				
 				var text:FlxText = new FlxText(figure.x - 12, this.y + 80, 80, score.toString());
 				text.visible = true;
+				text.color = 0xff000000;
+				add(text);
+				_scoresText.push(text);
+
+				text = new FlxText(figure.x - 13, this.y + 79, 80, score.toString());
+				text.visible = true;
 				text.color = 0xffffffff;
 				add(text);
-				
 				_scoresText.push(text);
 				
 				_meltTimer = MELT_TIME;
 				
 				FlxG.play(Assets.PointDeathSound, 0.6);
 			}
-			
-			return 0;
 		}
 		
 		override public function update():void
@@ -194,6 +194,11 @@ package world
 			}
 			
 			super.update();
+		}
+
+		public function get isDoneMelting():Boolean
+		{
+			return _figuresToMelt.length == 0;
 		}
 	}
 
