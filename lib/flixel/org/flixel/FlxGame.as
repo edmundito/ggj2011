@@ -474,7 +474,9 @@ package org.flixel
 					FlxG.volume = soundPrefs.data.volume;
 				if(soundPrefs.data.mute != null)
 					FlxG.mute = soundPrefs.data.mute;
-				showSoundTray(true);
+				// GGJ 2011 Mod: Don't show sound tray
+				//showSoundTray(true);
+				// END GGJ 2011 Mod
 			}
 			
 			//All set!
