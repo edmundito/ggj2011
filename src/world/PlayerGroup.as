@@ -5,12 +5,9 @@ package world
 	import sprites.FigureSprite;
 	import sprites.PlayerSprite;
 	
-	import world.Background;
-	import world.FigureGroup;
-	
 	public class PlayerGroup extends FlxGroup 
 	{
-		static public const TRANSITIONBUFFER:Number = 20;
+		static public const TRANSITION_BUFFER:Number = 20;
 		
 		private var _background:Background;
 		private var _backgroundFront:Background;
@@ -32,11 +29,6 @@ package world
 		
 		private var _figureKeyBubble:KeyBubble;
 		private var _playerKeyBubble:KeyBubble;
-		
-		public function get buildCount():uint
-		{
-			return _buildCount;
-		}
 		
 		public function PlayerGroup(player:PlayerSprite) 
 		{
@@ -124,8 +116,6 @@ package world
 						}
 						
 						_playerMeltCooldown -= FlxG.elapsed;
-						
-						_totalScore;
 					}
 				}
 				
@@ -211,19 +201,19 @@ package world
 			// No longer near figure and key hint is showing
 			if (!isNearFigure && _overlappingFigure)
 			{
-				_figureKeyBubble.hide()
+				_figureKeyBubble.hide();
 				Globals.randomKeyMgr.releaseKey(_buildKey);
 				_buildKey = "";
 				_overlappingFigure = null;
 			}
 			
 			// Next Background if needed
-			if (_player.x > FlxG.width - TRANSITIONBUFFER)
+			if (_player.x > FlxG.width - TRANSITION_BUFFER)
 			{
 				if (_background.next())
 				{
 					_backgroundFront.next();
-					_player.x = TRANSITIONBUFFER;
+					_player.x = TRANSITION_BUFFER;
 					_figureGroup.next();
 					
 					for each (var emitter:FlxEmitter in _emitterGroup.members)
@@ -234,7 +224,7 @@ package world
 				}
 				else
 				{
-					_player.x = FlxG.width - TRANSITIONBUFFER;
+					_player.x = FlxG.width - TRANSITION_BUFFER;
 				}
 			}
 			

@@ -5,10 +5,6 @@ package states
 	import org.flixel.FlxPoint;
 	import org.flixel.FlxG;
 	
-	import Assets;
-	import states.GameState;
-	import states.MainMenuState;
-	
 	public class LogoState extends FlxState
 	{
 		

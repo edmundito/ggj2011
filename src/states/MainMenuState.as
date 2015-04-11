@@ -1,7 +1,6 @@
 package states 
 {
 	import org.flixel.*;
-	import states.GameState;
 	
 	public class MainMenuState extends FlxState 
 	{

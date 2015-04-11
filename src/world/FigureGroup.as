@@ -8,10 +8,10 @@ package world
 	
 	public class FigureGroup extends FlxGroup 
 	{
-		static private const FIGUREOFFSET:int = 114;
+		static private const FIGURE_OFFSET:int = 114;
 		static private const NUM_FIGURES:uint = 10;
 		static private const BUILD_INC:uint = 8;
-		static public const MELTTIME:Number = 1.25;
+		static public const MELT_TIME:Number = 1.25;
 		
 		public static const FIGURE_GRAPHICS:Object = {
 			"blue": [
@@ -78,30 +78,30 @@ package world
 			
 			if (_current == 1)
 			{
-				add(new FigureSprite(FlxG.width * 0.5, this.y + FIGUREOFFSET, _figureGraphics[1], _buildSteps));
+				add(new FigureSprite(FlxG.width * 0.5, this.y + FIGURE_OFFSET, _figureGraphics[1], _buildSteps));
 			}
 			else if (_current == 2)
 			{
 				if (_buildSteps == BUILD_INC)
 				{
-					add(new FigureSprite(FlxG.width / 3, this.y + FIGUREOFFSET, _figureGraphics[0], _buildSteps));
-					add(new FigureSprite(FlxG.width / 3 * 2, this.y + FIGUREOFFSET, _figureGraphics[2], _buildSteps));
+					add(new FigureSprite(FlxG.width / 3, this.y + FIGURE_OFFSET, _figureGraphics[0], _buildSteps));
+					add(new FigureSprite(FlxG.width / 3 * 2, this.y + FIGURE_OFFSET, _figureGraphics[2], _buildSteps));
 				}
 				else
 				{
-					add(new FigureSprite(FlxG.width / 3, this.y + FIGUREOFFSET, _figureGraphics[_figureIndex], _buildSteps));
+					add(new FigureSprite(FlxG.width / 3, this.y + FIGURE_OFFSET, _figureGraphics[_figureIndex], _buildSteps));
 					nextFigureIndex();
-					add(new FigureSprite(FlxG.width / 3 * 2, this.y + FIGUREOFFSET, _figureGraphics[_figureIndex], _buildSteps));
+					add(new FigureSprite(FlxG.width / 3 * 2, this.y + FIGURE_OFFSET, _figureGraphics[_figureIndex], _buildSteps));
 					nextFigureIndex();
 				}
 			}
 			else if (_current >= 3)
 			{	
-				add(new FigureSprite(FlxG.width / 4, this.y + FIGUREOFFSET, _figureGraphics[_figureIndex], _buildSteps));
+				add(new FigureSprite(FlxG.width / 4, this.y + FIGURE_OFFSET, _figureGraphics[_figureIndex], _buildSteps));
 				nextFigureIndex();
-				add(new FigureSprite(FlxG.width / 4 * 2, this.y + FIGUREOFFSET, _figureGraphics[_figureIndex], _buildSteps));
+				add(new FigureSprite(FlxG.width / 4 * 2, this.y + FIGURE_OFFSET, _figureGraphics[_figureIndex], _buildSteps));
 				nextFigureIndex();
-				add(new FigureSprite(FlxG.width / 4 * 3, this.y + FIGUREOFFSET, _figureGraphics[_figureIndex], _buildSteps));
+				add(new FigureSprite(FlxG.width / 4 * 3, this.y + FIGURE_OFFSET, _figureGraphics[_figureIndex], _buildSteps));
 				nextFigureIndex();
 				
 				if (_buildSteps == BUILD_INC)
@@ -137,7 +137,7 @@ package world
 					x = half - FlxG.width / figures.length * index / 2;
 				}
 				
-				sprite = new FigureSprite(x, this.y + FIGUREOFFSET, figureGraphic, 16);
+				sprite = new FigureSprite(x, this.y + FIGURE_OFFSET, figureGraphic, 16);
 				sprite._currentStep = 100;
 				sprite._currentAnim = "idle";
 				add(sprite);
@@ -171,7 +171,7 @@ package world
 				
 				_scoresText.push(text);
 				
-				_meltTimer = MELTTIME;
+				_meltTimer = MELT_TIME;
 				
 				FlxG.play(Assets.PointDeathSound, 0.6);
 			}

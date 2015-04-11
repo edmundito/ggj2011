@@ -25,7 +25,6 @@ package sprites
 		private var _moveDirection:int;
 		
 		private var _alt:Boolean = false;
-		private var _currentAnimName:uint = 0;
 		private var _currentAnimFrame:uint = 0;
 		static private const MAX_BIRTH_ANIM_FRAMES:uint = 10;
 		static private const MAX_WALK_ANIM_FRAMES:uint = 2;
@@ -33,6 +32,7 @@ package sprites
 		
 		private var _state:uint = 1;
 		private var _colorKey:String;
+		private var _ready:Boolean = false;
 		
 		public function get moveKeyA():String
 		{
@@ -231,8 +231,6 @@ package sprites
 			}
 			
 		}
-		
-		private var _ready:Boolean = false;
 		
 		private function updateTwoKeys():void
 		{

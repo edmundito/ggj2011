@@ -6,12 +6,9 @@ package world
 	{
 		static private const MAX_FRAMES:uint = 6;
 		static private const WINTER_FRAMES:uint = 2;
-		static private const SPRING_FRAMES:uint = 3;
 		
 		private var _current:int = 0;
 		private var _phase:uint = 0;
-		
-		static private const MAX_PHASES:uint = 3;
 		
 		public function Background(Graphic:Class, height:uint = 120) 
 		{

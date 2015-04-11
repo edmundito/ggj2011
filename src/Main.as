@@ -9,7 +9,6 @@ package
 	import org.flixel.*;
 	
 	import states.*;
-	import oldStates.TestPlayerState;
 
 	[SWF(width="640", height="480", backgroundColor="#000000")]
 	[Frame(factoryClass="Preloader")]
@@ -19,6 +18,7 @@ package
 		
 		public function Main():void 
 		{
+			// These are here to make sure that they don't get removed by the compiler.
 			Assets;
 			Globals;
 			
@@ -26,8 +26,6 @@ package
 			super(320, 240, LogoState, ZOOM);
 			
 			this.useDefaultHotKeys = false;
-			
-			//FlxG.mouse.show();
 		}
 			
 		private function onAddedToStage(event:Event):void

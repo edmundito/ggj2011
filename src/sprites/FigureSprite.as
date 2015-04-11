@@ -1,7 +1,6 @@
 package sprites
 {
 	import org.flixel.FlxSprite;
-	import org.flixel.FlxG;
 	import org.flixel.FlxText;
 	
 	public class FigureSprite extends FlxSprite
