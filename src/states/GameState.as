@@ -8,6 +8,8 @@ package states
 	
 	public class GameState extends FlxState 
 	{
+		private var _player1:PlayerSprite;
+		private var _player2:PlayerSprite;
 		private var _player1Strip:PlayerGroup;
 		private var _player2Strip:PlayerGroup;
 		
@@ -16,6 +18,7 @@ package states
 		private var _seasonTimer:Number = 20.0; //85.0; // 85.0 = Original music length before starting to change seasons.
 		
 		private var _fadeoutCalled:Boolean = false;
+		private var _fadeOutDelay:Number = 0.0;
 		
 		override public function create():void
 		{
@@ -30,53 +33,64 @@ package states
 			Globals.randomKeyMgr.addKeyToIgnoreList("U");
 			Globals.randomKeyMgr.addKeyToIgnoreList("V");
 
-			var player1:PlayerSprite = new PlayerSprite("blue", "F", "G", FlxSprite.RIGHT, FlxG.width * 0.25, 120);
-			var player2:PlayerSprite = new PlayerSprite("red", "H", "J", FlxSprite.RIGHT, FlxG.width * 0.25, 120);
+			_player1 = new PlayerSprite("blue", "F", "G", FlxSprite.RIGHT, FlxG.width * 0.25, 120);
+			_player2 = new PlayerSprite("red", "H", "J", FlxSprite.RIGHT, FlxG.width * 0.25, 120);
 
-			_player1Strip = new PlayerGroup(player1);
+			_player1Strip = new PlayerGroup(_player1);
 			_player1Strip.y = 0;
 			add(_player1Strip);
 
-			_player2Strip = new PlayerGroup(player2);
+			_player2Strip = new PlayerGroup(_player2);
 			_player2Strip.y = FlxG.height * 0.5;
 			add(_player2Strip);
-
-			_bgm = FlxG.play(Assets.BgmSound);
 		}
 		
 		override public function update():void
 		{
 			if (_player1Strip.complete && _player2Strip.complete && !_fadeoutCalled)
 			{
-				_fadeoutCalled = true;
-				FlxG.fade.start(0xff000000, 10.0, onFade1Done);
+				if (_fadeOutDelay >= 5.0)
+				{
+					_fadeoutCalled = true;
+					FlxG.fade.start(0xff000000, 5.0, onEndFadeComplete);
+				}
+				_fadeOutDelay += FlxG.elapsed;
 			}
-			
-			if (!_bgm.playing && !_endTriggered)
+
+			if (_bgm == null)
 			{
-				_endTriggered = true;
-				FlxG.log("Music Ends!");
-				onFadeDone();
+				if (_player1.pressedMoveKeys || _player2.pressedMoveKeys)
+				{
+					_bgm = FlxG.play(Assets.BgmSound);
+				}
 			}
 			else
 			{
-				if (_seasonTimer <= 0 )
+				if (!_bgm.playing && !_endTriggered)
 				{
-					_player1Strip.nextSeason();
-					_player2Strip.nextSeason();
+					_endTriggered = true;
+					FlxG.log("Music Ends!");
+					goToScore();
 				}
 				else
 				{
-					_seasonTimer -= FlxG.elapsed;
+					if (_seasonTimer <= 0 )
+					{
+						_player1Strip.nextSeason();
+						_player2Strip.nextSeason();
+					}
+					else
+					{
+						_seasonTimer -= FlxG.elapsed;
+					}
 				}
 			}
 			
 			super.update();
 		}
 		
-		private function onFadeDone():void
+		private function goToScore():void
 		{
-			FlxG.log("Fade done!");
 			_player1Strip.goToScore();
 			_player2Strip.goToScore();
 
@@ -88,7 +102,7 @@ package states
 			_bgm = FlxG.play(Assets.BgmSlowSound, 1.0, true);
 		}
 		
-		private function onFade1Done():void
+		private function onEndFadeComplete():void
 		{
 			FlxG.log("Fade1 done!");
 			FlxG.state = new MainMenuState();

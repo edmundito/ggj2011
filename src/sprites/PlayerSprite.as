@@ -76,7 +76,6 @@ package sprites
 			Globals.randomKeyMgr.addKeyToIgnoreList(_moveKeyA);
 			Globals.randomKeyMgr.addKeyToIgnoreList(_moveKeyB);
 			
-			
 			var GraphicClass:Class = (ColorKey == "red")? Assets.RedPlayerGraphic : Assets.BluePlayerGraphic;
 			
 			loadGraphic(GraphicClass, true, true, 80, 80);
@@ -85,9 +84,6 @@ package sprites
 			
 			this.offset.x = this.width * 0.5;
 			this.offset.y = this.height;
-			
-			//addAnimation("idle", [0]);
-			//addAnimation("walking", [1, 2, 0], WALK_FPS, true);
 			
 			addAnimation("walk0", [9], WALK_FPS, true);
 			addAnimation("walk1", [8], WALK_FPS, true);
@@ -136,71 +132,6 @@ package sprites
 			}
 			
 			super.update();
-		}
-		
-		private function updateSmooth():void
-		{
-			// Update Movement
-			
-			this.acceleration.x = 0;
-			this.acceleration.y = 0;
-			
-			if (FlxG.keys.LEFT)
-			{
-				this.facing = RIGHT;
-				this.acceleration.x -= this.drag.x;
-			}
-			
-			if (FlxG.keys.RIGHT)
-			{
-				this.facing = LEFT;
-				this.acceleration.x += this.drag.x;
-			}
-			
-			// Update Animation
-			
-			if (this.acceleration.x != 0)
-			{
-				play("walking");	
-			}
-			else
-			{
-				play("idle");
-			}
-		}
-		
-		private function updateAntiGlide():void
-		{
-			var delta:int = 0;
-			
-			if (FlxG.keys.LEFT)
-			{
-				this.facing = RIGHT;
-				delta -= 1;
-			}
-			
-			if (FlxG.keys.RIGHT)
-			{
-				this.facing = LEFT;
-				delta += 1;
-			}
-			
-			if (FlxG.keys.RIGHT || FlxG.keys.LEFT)
-			{
-				_animTime += FlxG.elapsed;
-				play("walking");
-			}
-			else
-			{
-				_animTime = 0;
-				play("idle");
-			}
-			
-			if (_animTime > 1 / WALK_FPS)
-			{
-				this.x += delta * MOVE_SPEED / WALK_FPS;
-				_animTime -= 1 / WALK_FPS;
-			}
 		}
 		
 		private function moveForward():void
@@ -266,7 +197,12 @@ package sprites
 
 		public function moved():Boolean
 		{
-			return _state == STATE_RUN && (FlxG.keys.justPressed(_moveKeyA) || FlxG.keys.justPressed(_moveKeyB));
+			return _state == STATE_RUN && this.pressedMoveKeys;
+		}
+
+		public function get pressedMoveKeys():Boolean
+		{
+			return (FlxG.keys.justPressed(_moveKeyA) || FlxG.keys.justPressed(_moveKeyB));
 		}
 		
 		public function building():void
